@@ -21,24 +21,24 @@ export class Problem {
     this._acceptanceRate = acceptanceRate;
   }
 
-  public get id(): bigint {
-    return this.id;
+  public get id(): number {
+    return this._id;
   }
 
   public get name(): string {
-    return this.name;
+    return this._name;
   }
 
-  public get topics(): string {
-    return this.topics;
+  public get topics(): Array<Topic> {
+    return this._topics;
   }
 
-  public get difficulty(): string {
-    return this.difficulty;
+  public get difficulty(): 0 | 1 | 2 {
+    return this._difficulty;
   }
 
-  public get acceptanceRate(): string {
-    return this.acceptanceRate;
+  public get acceptanceRate(): number {
+    return this._acceptanceRate;
   }
 
   public set id(newId: number) {

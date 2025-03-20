@@ -1,11 +1,13 @@
 import { Problem } from "./Problem";
 import { Profile } from "./Profile";
+import { Topic } from "./Topic";
 
 export class Plan {
   private _id: number;
   private _title: string;
   private _profile: Profile;
   private _problems: Array<[boolean, Problem]>;
+  private _topics: Set<Topic>;
 
   constructor(
     id: number,
@@ -17,6 +19,18 @@ export class Plan {
     this._title = title;
     this._profile = profile;
     this._problems = problems;
+    this._topics = new Set();
+    this.initializeTopicSet();
+  }
+
+  public initializeTopicSet() {
+    for (let i = 0; i < this._problems.length; i++) {
+      const [isDone, problem] = this._problems[i];
+      for (let j = 0; j < problem.topics.length; j++) {
+        const topic: Topic = problem.topics[j];
+        this._topics.add(topic);
+      }
+    }
   }
 
   public get id(): number {
@@ -60,7 +74,11 @@ export class Plan {
     this._problems = newProblems;
   }
 
-  public updateProblemDone(id: bigint) {
+  public get topics(): Set<Topic> {
+    return this._topics;
+  }
+
+  public updateProblemDone(id: number) {
     for (let i = 0; i < this._problems.length; i++) {
       const [isDone, problem] = this._problems[i];
       if (problem.id === id) {
@@ -69,6 +87,18 @@ export class Plan {
       }
     }
   }
+
+  public getPercentageCompleted(): number {
+    let counter: number = 0;
+    for (let i = 0; i < this._problems.length; i++) {
+      const [isDone, problem] = this._problems[i];
+      if (isDone === true) {
+        counter += 1;
+      }
+    }
+    return (counter / this._problems.length) * 100;
+  }
+
   public toString(): string {
     return `Plan(id:${this._id}, title:${this._title}, profile:${this._profile}, problems:${this._problems})`;
   }

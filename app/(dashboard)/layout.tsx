@@ -20,12 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-darkgrey ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex h-screen">
-          {/* Card on the left side */}
           <SidePannel />
-          {/* Main content */}
           <div className="flex-1 p-4">{children}</div>
         </div>
       </body>

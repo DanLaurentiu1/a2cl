@@ -56,35 +56,35 @@ const profile1: Profile = new Profile(1, "Profile 1", proficiencies1, true);
 const profile2: Profile = new Profile(2, "Profile 2", proficiencies2, true);
 
 const plan1: Plan = new Plan(1, "Plan 1", profile1, [
-  [false, problem1],
-  [false, problem2],
+  [true, problem1],
+  [true, problem2],
   [false, problem3],
 ]);
 
 const plan2: Plan = new Plan(2, "Plan 2", profile2, [
   [false, problem1],
-  [false, problem3],
+  [true, problem3],
   [false, problem5],
   [false, problem6],
 ]);
 
 const plan3: Plan = new Plan(3, "Plan 3", profile2, [
-  [false, problem1],
-  [false, problem3],
-  [false, problem4],
-  [false, problem5],
+  [true, problem1],
+  [true, problem3],
+  [true, problem4],
+  [true, problem5],
   [false, problem6],
 ]);
 
 const plan4: Plan = new Plan(4, "Plan 4", profile1, [
-  [false, problem1],
-  [false, problem6],
+  [true, problem1],
+  [true, problem6],
 ]);
 
 const plan5: Plan = new Plan(5, "Plan 5", profile1, [
-  [false, problem1],
+  [true, problem1],
   [false, problem2],
-  [false, problem3],
+  [true, problem3],
   [false, problem6],
 ]);
 
