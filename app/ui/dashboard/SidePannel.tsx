@@ -8,21 +8,21 @@ export default function SidePannel() {
         <h2 className="text-white text-2xl font-semibold">Plans</h2>
         <Link
           href="/"
-          className="text-white w-3/5 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-300"
+          className="text-white w-3/5 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"
         >
           Home
         </Link>
       </div>
       <PlansList></PlansList>
-      <div className="mt-auto flex flex-col space-y-2 items-center">
+      <div className="mt-auto flex flex-col space-y-4 items-center">
         <Link
-          className="text-white w-5/6 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-300"
+          className="text-white w-5/6 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"
           href="/plans"
         >
           View all Plans
         </Link>
         <Link
-          className="text-white w-5/6 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-300"
+          className="text-white w-5/6 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"
           href="/"
         >
           My account
