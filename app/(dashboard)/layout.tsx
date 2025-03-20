@@ -22,10 +22,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="">
+        <div className="flex h-screen">
+          {/* Card on the left side */}
           <SidePannel />
+          {/* Main content */}
+          <div className="flex-1 p-4">{children}</div>
         </div>
-        {children}
       </body>
     </html>
   );
