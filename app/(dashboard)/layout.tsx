@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SidePannel from "../ui/dashboard/SidePannel";
+import { PlanProvider } from "../context/PlanProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,12 @@ export default function RootLayout({
       <body
         className={`bg-darkgrey ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex h-screen">
-          <SidePannel />
-          <div className="flex-1 p-4">{children}</div>
-        </div>
+        <PlanProvider>
+          <div className="flex h-screen">
+            <SidePannel />
+            <div className="flex-1 p-4">{children}</div>
+          </div>
+        </PlanProvider>
       </body>
     </html>
   );

@@ -10,16 +10,23 @@ export default function ProblemNode({
   acceptanceRate: number;
   difficulty: number;
 }>) {
-  const borderColor: Map<number, string> = new Map();
-  borderColor.set(0, "green-500");
-  borderColor.set(1, "orange");
-  borderColor.set(2, "red-500 ");
-
+  let borderColorClass: string;
+  switch (difficulty) {
+    case 0:
+      borderColorClass = "border-green-500";
+      break;
+    case 1:
+      borderColorClass = "border-orange-500";
+      break;
+    case 2:
+      borderColorClass = "border-red-500";
+      break;
+    default:
+      borderColorClass = "border-gray-500";
+  }
   return (
     <div
-      className={`bg-lightgrey border-2 border-${borderColor.get(
-        difficulty
-      )} rounded-lg p-4 w-80`}
+      className={`bg-lightgrey border-2 ${borderColorClass} rounded-lg p-4 w-80`}
     >
       <p className="text-white font-semibold">
         {number.toString() + ". " + name}
