@@ -78,6 +78,10 @@ export class Plan {
     return this._topics;
   }
 
+  public getProblemById(problemId: number): [boolean, Problem] | undefined {
+    return this._problems.find((problem) => problem[1].id === problemId);
+  }
+
   public updateProblemDone(id: number) {
     for (let i = 0; i < this._problems.length; i++) {
       const [isDone, problem] = this._problems[i];

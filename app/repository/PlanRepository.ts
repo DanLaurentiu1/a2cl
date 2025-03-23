@@ -175,7 +175,7 @@ export class PlanRepository {
 
   addPlan(plan: Plan) {
     this._plans.push(plan);
-    this.setPlans?.([...this._plans]);
+    this.setPlans?.(this._plans);
   }
 
   getPlans(): Array<Plan> {
@@ -191,16 +191,16 @@ export class PlanRepository {
     for (let i = 0; i < plan!.problems.length; i++) {
       let [isCompleted, problem] = plan!.problems[i];
       if (problem.id === problemId) {
-        isCompleted = !isCompleted;
+        plan!.problems[i][0] = !plan!.problems[i][0];
         break;
       }
     }
-    this.setPlans?.([...this._plans]);
+    this.setPlans?.(this._plans);
   }
 
   deletePlan(id: number) {
     this._plans = this._plans.filter((plan) => plan.id !== id);
-    this.setPlans?.([...this._plans]);
+    this.setPlans?.(this._plans);
   }
 }
 export let planRepository = new PlanRepository();

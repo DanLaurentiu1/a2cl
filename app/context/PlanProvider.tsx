@@ -16,7 +16,7 @@ export const PlanProvider = ({ children }: PlanProviderProps) => {
   planRepository.initialize(setPlans);
 
   return (
-    <PlanContext.Provider value={{ planRepository, plans }}>
+    <PlanContext.Provider value={{ planRepository }}>
       {children}
     </PlanContext.Provider>
   );

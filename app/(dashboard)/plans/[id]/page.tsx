@@ -1,5 +1,4 @@
 "use client";
-import { plans } from "@/app/domain/data";
 import PlanGraph from "./PlanGraph";
 import { use, useContext } from "react";
 import PlanContext from "@/app/context/PlanContext";
@@ -17,7 +16,7 @@ export default function PlanPage({
 
   const { planRepository, plans } = context;
   const { id } = use(params);
-  const plan = plans.find((plan) => plan.id === Number(id));
+  const plan = planRepository.getPlans().find((plan) => plan.id === Number(id));
 
   if (!plan) {
     return (

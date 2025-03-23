@@ -5,8 +5,13 @@ import ProblemNode from "@/app/ui/problems/ProblemNode";
 import { Edge, Node } from "reactflow";
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
+import ProblemEdge from "@/app/ui/problems/ProblemEdge";
 const nodeTypes = {
   problemNode: ProblemNode,
+};
+
+const edgeTypes = {
+  problemEdge: ProblemEdge,
 };
 
 export default function PlanGraph(plan: Plan | undefined) {
@@ -20,7 +25,8 @@ export default function PlanGraph(plan: Plan | undefined) {
       type: "problemNode",
       position: { x: centerX, y: centerY },
       data: {
-        number: problem[1].id,
+        planId: plan.id,
+        problemId: problem[1].id,
         name: problem[1].name,
         acceptanceRate: problem[1].acceptanceRate,
         difficulty: problem[1].difficulty,
@@ -28,16 +34,16 @@ export default function PlanGraph(plan: Plan | undefined) {
     });
     centerY += 125;
   });
-
   for (let i = 0; i < plan!.problems.length - 1; i++) {
     const current = plan!.problems[i][1];
     const next = plan!.problems[i + 1][1];
-
     edges.push({
       id: `${current.id}-${next.id}`,
       source: current.id.toString(),
       target: next.id.toString(),
-      style: { stroke: "#10B981", strokeWidth: 2, width: 12 },
+      sourceHandle: `source-${current.id.toString()}`,
+      targetHandle: `target-${next.id.toString()}`,
+      type: "problemEdge",
     });
   }
 
@@ -46,6 +52,7 @@ export default function PlanGraph(plan: Plan | undefined) {
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
       fitView
     ></ReactFlow>
   );
