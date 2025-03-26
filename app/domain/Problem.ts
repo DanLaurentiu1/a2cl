@@ -1,7 +1,7 @@
 import { Topic } from "./Topic";
 
 export class Problem {
-  private _id: number;
+  private _number: number;
   private _name: string;
   private _topics: Array<Topic>;
   private _difficulty: 0 | 1 | 2;
@@ -14,7 +14,7 @@ export class Problem {
     difficulty: 0 | 1 | 2,
     acceptanceRate: number
   ) {
-    this._id = id;
+    this._number = id;
     this._name = name;
     this._topics = topics;
     this._difficulty = difficulty;
@@ -22,7 +22,7 @@ export class Problem {
   }
 
   public get id(): number {
-    return this._id;
+    return this._number;
   }
 
   public get name(): string {
@@ -45,7 +45,7 @@ export class Problem {
     if (newId < 0) {
       throw new Error("Id cannot be negative");
     }
-    this._id = newId;
+    this._number = newId;
   }
 
   public set name(newName: string) {
@@ -71,6 +71,6 @@ export class Problem {
   }
 
   public toString(): string {
-    return `Problem(id:${this._id}, name:${this._name}, topics:${this._topics}, difficulty:${this._difficulty}, acceptanceRate:${this._acceptanceRate})`;
+    return `Problem(id:${this._number}, name:${this._name}, topics:${this._topics}, difficulty:${this._difficulty}, acceptanceRate:${this._acceptanceRate})`;
   }
 }

@@ -1,31 +1,23 @@
+import { topicRepository } from "../repository/TopicRepository";
 import { Topic } from "./Topic";
+
+const defaultProficiencies: Map<Topic, number> = new Map(
+  topicRepository.getAllTopics().map((topic) => [topic, 0])
+);
+
 export class Profile {
-  private _id: number;
   private _name: string;
   private _proficiencies: Map<Topic, number>;
   private _fromLeetcode: boolean;
 
   constructor(
-    id: number,
     name: string,
-    proficiencies: Map<Topic, number>,
-    fromLeetcode: boolean
+    fromLeetcode: boolean,
+    proficiencies: Map<Topic, number> = defaultProficiencies
   ) {
-    this._id = id;
     this._name = name;
     this._proficiencies = proficiencies;
     this._fromLeetcode = fromLeetcode;
-  }
-
-  public get id(): number {
-    return this._id;
-  }
-
-  public set id(newId: number) {
-    if (newId < 0) {
-      throw new Error("Id cannot be negative");
-    }
-    this._id = newId;
   }
 
   public get name(): string {
@@ -62,6 +54,6 @@ export class Profile {
   }
 
   public toString(): string {
-    return `Profile(id:${this._id}, name:${this._name}, proficiencies:${this._proficiencies}, fromLeetcode:${this._fromLeetcode})`;
+    return `Profile(name:${this._name}, proficiencies:${this._proficiencies}, fromLeetcode:${this._fromLeetcode})`;
   }
 }

@@ -6,25 +6,12 @@ export enum TopicTypes {
 }
 
 export class Topic {
-  private _id: number;
   private _name: string;
   private _type: TopicTypes;
 
-  constructor(id: number, name: string, type: TopicTypes) {
-    this._id = id;
+  constructor(name: string, type: TopicTypes) {
     this._name = name;
     this._type = type;
-  }
-
-  public get id(): number {
-    return this._id;
-  }
-
-  public set id(newId: number) {
-    if (newId < 0) {
-      throw new Error("Id cannot be negative");
-    }
-    this._id = newId;
   }
 
   public get name(): string {
@@ -47,6 +34,6 @@ export class Topic {
   }
 
   public toString(): string {
-    return `Topic(id:${this._id}, name:${this._name}, type:${this._type})`;
+    return `Topic(name:${this._name}, type:${this._type})`;
   }
 }

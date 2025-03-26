@@ -14,7 +14,7 @@ export default function PlanPage({
     throw new Error("PlansList must be used within a PlanProvider");
   }
 
-  const { planRepository, plans } = context;
+  const { planRepository } = context;
   const { id } = use(params);
   const plan = planRepository.getPlans().find((plan) => plan.id === Number(id));
 
