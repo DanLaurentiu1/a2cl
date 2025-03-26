@@ -16,6 +16,7 @@ export default function PlansList() {
   const handleDelete = (planId: number) => {
     planRepository.deletePlan(planId);
   };
+
   return (
     <div className="flex flex-col flex-grow overflow-auto m-1">
       <ul className="p-1">

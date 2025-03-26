@@ -1,6 +1,6 @@
 import { Topic } from "@/app/domain/Topic";
 
-export default function TopicTags(topics: Array<Topic>) {
+export default function TopicTags({ topics }: { topics: Array<Topic> }) {
   return (
     <div className="flex flex-wrap gap-2">
       {topics.map((topic) => (

@@ -1,14 +1,23 @@
 "use client";
+import PlanContext from "@/app/context/PlanContext";
 import { Plan } from "@/app/domain/Plan";
 import { Profile } from "@/app/domain/Profile";
 import { Topic } from "@/app/domain/Topic";
 import { topicRepository } from "@/app/repository/TopicRepository";
 import TopicTags from "@/app/ui/topics/TopicTags";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function AddPage() {
+  const context = useContext(PlanContext);
+
+  if (!context) {
+    throw new Error("PlansList must be used within a PlanProvider");
+  }
+
+  const { planRepository } = context;
+
   const [topics, setTopics] = useState<Array<Topic>>([]);
   const [profileName, setProfileName] = useState<string>("");
   const [planTitle, setPlanTitle] = useState<string>("");
@@ -26,7 +35,9 @@ export default function AddPage() {
 
   const handleAddPlan = () => {
     const newProfile = new Profile(profileName, false);
-    const newPlan = new Plan(123, planTitle, newProfile, []);
+    const newId = planRepository.getPlans().length;
+    const newPlan = new Plan(newId + 1, planTitle, newProfile, []);
+    planRepository.addPlan(newPlan);
   };
 
   return (
@@ -73,7 +84,7 @@ export default function AddPage() {
             <FaPlus className="text-base" />
           </button>
         </div>
-        {TopicTags(topics)}
+        <TopicTags topics={topics} />
         <div className="flex p-4 w-5/6 gap-4 rounded-lg items-center">
           <Link
             className="text-white w-full bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"

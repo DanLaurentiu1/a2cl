@@ -1,6 +1,6 @@
 import { Plan } from "@/app/domain/Plan";
 
-export default function ProgressBar(plan: Plan) {
+export default function ProgressBar({ plan }: { plan: Plan }) {
   return (
     <div className="w-full bg-gray-300 rounded-full h-2 mb-4">
       <div
