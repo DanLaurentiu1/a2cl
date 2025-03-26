@@ -1,5 +1,6 @@
 import { Profile } from "../domain/Profile";
 import { Topic } from "../domain/Topic";
+import { ProfileValidator } from "../validation/ProfileValidator";
 import { topicRepository, TopicRepository } from "./TopicRepository";
 
 export class ProfileRepository {
@@ -17,6 +18,7 @@ export class ProfileRepository {
   }
 
   public addProfile(profile: Profile) {
+    ProfileValidator.validateProfile(profile);
     this._profiles.set(profile.name, profile);
   }
 
@@ -51,11 +53,11 @@ export class ProfileRepository {
 
     this._profiles.set(
       "Profile 1",
-      new Profile("Profile 1", proficiencies1, true)
+      new Profile("Profile 1", true, proficiencies1)
     );
     this._profiles.set(
       "Profile 2",
-      new Profile("Profile 2", proficiencies2, true)
+      new Profile("Profile 2", true, proficiencies2)
     );
   }
 }

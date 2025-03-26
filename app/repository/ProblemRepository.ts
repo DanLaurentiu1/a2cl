@@ -3,7 +3,7 @@ import { topicRepository, TopicRepository } from "./TopicRepository";
 
 export class ProblemRepository {
   private _topicRepository: TopicRepository;
-  private _problems: Map<String, Problem>;
+  private _problems: Map<number, Problem>;
 
   constructor() {
     this._problems = new Map();
@@ -11,13 +11,13 @@ export class ProblemRepository {
     this.initialiseProblems();
   }
 
-  public getProblemByName(name: String): Problem | undefined {
-    return this._problems.get(name);
+  public getProblemByNumber(number: number): Problem | undefined {
+    return this._problems.get(number);
   }
 
   public initialiseProblems() {
     this._problems.set(
-      "Two Sum",
+      1,
       new Problem(
         1,
         "Two Sum",
@@ -30,7 +30,7 @@ export class ProblemRepository {
       )
     );
     this._problems.set(
-      "Add Two Numbers",
+      2,
       new Problem(
         2,
         "Add Two Numbers",
@@ -44,7 +44,7 @@ export class ProblemRepository {
       )
     );
     this._problems.set(
-      "Longest Substring Without Repeating Characters",
+      3,
       new Problem(
         3,
         "Longest Substring Without Repeating Characters",
@@ -58,7 +58,7 @@ export class ProblemRepository {
       )
     );
     this._problems.set(
-      "Median Of Two Sorted Arrays",
+      4,
       new Problem(
         4,
         "Median Of Two Sorted Arrays",
@@ -72,7 +72,7 @@ export class ProblemRepository {
       )
     );
     this._problems.set(
-      "Longest Palindromic Substring",
+      5,
       new Problem(
         5,
         "Longest Palindromic Substring",
@@ -86,13 +86,33 @@ export class ProblemRepository {
       )
     );
     this._problems.set(
-      "Zigzag Conversion",
+      6,
       new Problem(
         6,
         "Zigzag Conversion",
         [this._topicRepository.getTopicByName("String")!],
         1,
         50
+      )
+    );
+    this._problems.set(
+      7,
+      new Problem(
+        7,
+        "Reverse Integer",
+        [this._topicRepository.getTopicByName("Math")!],
+        1,
+        29
+      )
+    );
+    this._problems.set(
+      8,
+      new Problem(
+        8,
+        "String to Integer (atoi)",
+        [this._topicRepository.getTopicByName("String")!],
+        1,
+        18
       )
     );
   }
