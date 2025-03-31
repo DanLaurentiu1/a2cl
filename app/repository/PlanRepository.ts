@@ -55,7 +55,6 @@ export class PlanRepository {
           [true, this._problemRepository.getProblemByNumber(1)!],
           [true, this._problemRepository.getProblemByNumber(3)!],
           [true, this._problemRepository.getProblemByNumber(5)!],
-          [true, this._problemRepository.getProblemByNumber(3)!],
           [false, this._problemRepository.getProblemByNumber(6)!],
         ]
       )
