@@ -1,5 +1,5 @@
 "use client";
-import { Problem } from "@/app/domain/Problem";
+import { Problem } from "@/app/lib/domain/Problem";
 import { Plan } from "../../domain/Plan";
 import { Handle, NodeProps, Position } from "reactflow";
 import PlanContext from "@/app/context/PlanContext";

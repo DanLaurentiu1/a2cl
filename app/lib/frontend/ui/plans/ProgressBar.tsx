@@ -1,4 +1,4 @@
-import { Plan } from "@/app/domain/Plan";
+import { Plan } from "@/app/lib/domain/Plan";
 
 export default function ProgressBar({ plan }: { plan: Plan }) {
   return (

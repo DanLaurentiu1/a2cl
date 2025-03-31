@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Plan } from "@/app/domain/Plan";
+import { Plan } from "@/app/lib/domain/Plan";
 import ProblemNode from "@/app/ui/problems/ProblemNode";
 import { Edge, Node } from "reactflow";
 import ReactFlow from "reactflow";

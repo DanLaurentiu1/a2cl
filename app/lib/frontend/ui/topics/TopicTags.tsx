@@ -1,4 +1,4 @@
-import { Topic } from "@/app/domain/Topic";
+import { Topic } from "@/app/lib/domain/Topic";
 
 export default function TopicTags({ topics }: { topics: Array<Topic> }) {
   return (

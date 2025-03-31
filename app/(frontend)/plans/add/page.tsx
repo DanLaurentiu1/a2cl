@@ -1,8 +1,8 @@
 "use client";
 import PlanContext from "@/app/context/PlanContext";
-import { Plan } from "@/app/domain/Plan";
-import { Profile } from "@/app/domain/Profile";
-import { Topic } from "@/app/domain/Topic";
+import { Plan } from "@/app/lib/domain/Plan";
+import { Profile } from "@/app/lib/domain/Profile";
+import { Topic } from "@/app/lib/domain/Topic";
 import { topicRepository } from "@/app/repository/TopicRepository";
 import TopicTags from "@/app/ui/topics/TopicTags";
 import Link from "next/link";
