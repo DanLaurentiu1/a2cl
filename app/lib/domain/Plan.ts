@@ -5,7 +5,7 @@ import { Topic } from "./Topic";
 export class Plan {
   private readonly _topics: Set<Topic>;
 
-  constructor(
+  public constructor(
     private readonly _id: number,
     private _title: string,
     private readonly _profile: Profile,
@@ -18,23 +18,23 @@ export class Plan {
   // Public API
   // ====================
 
-  get id(): number {
+  public get id(): number {
     return this._id;
   }
 
-  get title(): string {
+  public get title(): string {
     return this._title;
   }
 
-  get profile(): Profile {
+  public get profile(): Profile {
     return this._profile;
   }
 
-  get problems(): Array<[boolean, Problem]> {
+  public get problems(): Array<[boolean, Problem]> {
     return [...this._problems] as const;
   }
 
-  get topicList(): ReadonlySet<Topic> {
+  public get topics(): ReadonlySet<Topic> {
     return new Set(this._topics);
   }
 
@@ -66,7 +66,7 @@ export class Plan {
     this._problems[problemIndex][0] = !this._problems[problemIndex][0];
   }
 
-  public completionPercentage(): number {
+  public getPercentageCompleted(): number {
     if (this._problems.length === 0) return 0;
     const completedCount = this._problems.reduce(
       (count, [isDone]) => (isDone ? count + 1 : count),

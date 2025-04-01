@@ -3,7 +3,7 @@ import { Topic } from "./Topic";
 
 export class Profile {
   private readonly _proficiencies: Map<Topic, number>;
-  constructor(
+  public constructor(
     private readonly _name: string,
     private readonly _fromLeetcode: boolean
   ) {

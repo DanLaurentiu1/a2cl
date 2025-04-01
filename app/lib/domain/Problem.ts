@@ -1,7 +1,7 @@
 import { Topic } from "./Topic";
 
 export class Problem {
-  constructor(
+  public constructor(
     private readonly _id: number,
     private readonly _name: string,
     private readonly _topics: Array<Topic>,

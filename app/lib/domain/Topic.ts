@@ -6,7 +6,7 @@ export enum TopicTypes {
 }
 
 export class Topic {
-  constructor(
+  public constructor(
     private readonly _name: string,
     private readonly _type: TopicTypes
   ) {}
