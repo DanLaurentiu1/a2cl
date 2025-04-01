@@ -1,11 +1,22 @@
-import { createContext } from "react";
-import { PlanRepository } from "../repository/PlanRepository";
-import { Plan } from "../domain/Plan";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { PlanClientRepository } from "../repositories/PlanClientRepository";
+import { Problem } from "../../domain/Problem";
+import { Plan } from "../../domain/Plan";
 
 type PlanContextType = {
-  planRepository: PlanRepository;
+  plans: Array<Plan>;
+  loading: boolean;
+  error: string | null;
+  addPlan: (planData: Omit<Plan, "id">) => Promise<void>;
+  updatePlanProblems: (
+    planId: number,
+    problems: Array<[boolean, Problem]>
+  ) => Promise<void>;
+  deletePlan: (planId: number) => Promise<void>;
+  getPlans: () => Promise<void>;
+  getPlanById: (id: number) => Plan;
 };
 
-const PlanContext = createContext<PlanContextType | null>(null);
-
-export default PlanContext;
+export const PlanContext = createContext<PlanContextType | undefined>(
+  undefined
+);
