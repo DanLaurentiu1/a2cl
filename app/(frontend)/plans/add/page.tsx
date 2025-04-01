@@ -1,43 +1,60 @@
 "use client";
-import PlanContext from "@/app/context/PlanContext";
 import { Plan } from "@/app/lib/domain/Plan";
 import { Profile } from "@/app/lib/domain/Profile";
 import { Topic } from "@/app/lib/domain/Topic";
-import { topicRepository } from "@/app/repository/TopicRepository";
-import TopicTags from "@/app/ui/topics/TopicTags";
+import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
+import TopicTags from "@/app/lib/frontend/ui/topics/TopicTags";
+import { getTopicByName } from "@/app/lib/shared/data/topics";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function AddPage() {
-  const context = useContext(PlanContext);
-
-  if (!context) {
-    throw new Error("PlansList must be used within a PlanProvider");
-  }
-
-  const { planRepository } = context;
+  const { addPlan } = usePlans();
 
   const [topics, setTopics] = useState<Array<Topic>>([]);
-  const [profileName, setProfileName] = useState<string>("");
-  const [planTitle, setPlanTitle] = useState<string>("");
-  const [topicName, setTopicName] = useState<string>("");
-  const [fromLeetcode, setFromLeetcode] = useState<boolean>(false);
+  const [formData, setFormData] = useState({
+    profileName: "",
+    planTitle: "",
+    topicName: "",
+    fromLeetcode: false,
+  });
 
   const handleAddTopic = () => {
+    const { topicName } = formData;
     if (topicName.trim()) {
-      if (topicRepository.getTopicByName(topicName)) {
-        setTopics([...topics, topicRepository.getTopicByName(topicName)!]);
+      const topic = getTopicByName(topicName);
+      if (topic) {
+        setTopics([...topics, topic]);
       }
-      setTopicName("");
+      setFormData((prev) => ({ ...prev, topicName: "" }));
     }
   };
 
-  const handleAddPlan = () => {
-    const newProfile = new Profile(profileName, false);
-    const newId = planRepository.getPlans().length;
-    const newPlan = new Plan(newId + 1, planTitle, newProfile, []);
-    planRepository.addPlan(newPlan);
+  const handleAddPlan = async () => {
+    const { profileName, planTitle } = formData;
+
+    if (!profileName.trim() || !planTitle.trim()) {
+      alert("Profile name and plan title are required");
+      return;
+    }
+
+    try {
+      const newProfile = new Profile(profileName, formData.fromLeetcode);
+      const newPlan = new Plan(0, planTitle, newProfile, []);
+
+      await addPlan(newPlan);
+      setFormData({
+        profileName: "",
+        planTitle: "",
+        topicName: "",
+        fromLeetcode: false,
+      });
+      setTopics([]);
+    } catch (error) {
+      console.error("Failed to add plan:", error);
+      alert("Failed to create plan. Please try again.");
+    }
   };
 
   return (
@@ -48,15 +65,19 @@ export default function AddPage() {
           <input
             type="text"
             placeholder="Profile Name"
-            value={profileName}
-            onChange={(e) => setProfileName(e.target.value)}
+            value={formData.profileName}
+            onChange={(e) =>
+              setFormData({ ...formData, profileName: e.target.value })
+            }
             className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
           />
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
-              checked={fromLeetcode}
-              onChange={(e) => setFromLeetcode(e.target.checked)}
+              checked={formData.fromLeetcode}
+              onChange={(e) =>
+                setFormData({ ...formData, fromLeetcode: e.target.checked })
+              }
               className="w-5 h-5"
             />
             <span className="text-white">From Leetcode</span>
@@ -65,15 +86,19 @@ export default function AddPage() {
         <input
           type="text"
           placeholder="Plan Title"
-          value={planTitle}
-          onChange={(e) => setPlanTitle(e.target.value)}
+          value={formData.planTitle}
+          onChange={(e) =>
+            setFormData({ ...formData, planTitle: e.target.value })
+          }
           className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
         />
         <div className="flex p-2 w-full gap-12 rounded-lg items-center">
           <input
             type="text"
-            value={topicName}
-            onChange={(e) => setTopicName(e.target.value)}
+            value={formData.topicName}
+            onChange={(e) =>
+              setFormData({ ...formData, topicName: e.target.value })
+            }
             placeholder="Topic Name"
             className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
           />

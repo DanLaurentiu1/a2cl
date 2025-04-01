@@ -1,22 +1,20 @@
 "use client";
+import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
 import PlanGraph from "./PlanGraph";
 import { use, useContext } from "react";
-import PlanContext from "@/app/context/PlanContext";
 
 export default function PlanPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const context = useContext(PlanContext);
+  const { plans, loading, error } = usePlans();
 
-  if (!context) {
-    throw new Error("PlansList must be used within a PlanProvider");
-  }
+  if (loading) return <div>Loading plan...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  const { planRepository } = context;
   const { id } = use(params);
-  const plan = planRepository.getPlans().find((plan) => plan.id === Number(id));
+  const plan = plans.find((plan) => plan.id === Number(id));
 
   if (!plan) {
     return (

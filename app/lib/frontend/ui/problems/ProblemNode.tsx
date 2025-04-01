@@ -1,9 +1,9 @@
 "use client";
 import { Problem } from "@/app/lib/domain/Problem";
-import { Plan } from "../../domain/Plan";
 import { Handle, NodeProps, Position } from "reactflow";
-import PlanContext from "@/app/context/PlanContext";
 import { useContext, useState } from "react";
+import { usePlans } from "../../context/PlanProvider";
+import { Plan } from "@/app/lib/domain/Plan";
 export default function ProblemNode({
   data: { planId, problemId, name, acceptanceRate, difficulty },
 }: NodeProps<{
@@ -13,16 +13,32 @@ export default function ProblemNode({
   acceptanceRate: number;
   difficulty: number;
 }>) {
-  const context = useContext(PlanContext);
+  const { updatePlanProblems, getPlanById } = usePlans();
+  const plan: Plan = getPlanById(planId);
+  const currentProblem = plan?.problems.find((p) => p[1].id === problemId);
+  const [isChecked, setIsChecked] = useState(currentProblem?.[0] ?? false);
 
-  if (!context) {
-    throw new Error("PlansList must be used within a PlanProvider");
-  }
+  const handleCheckboxChange = async () => {
+    if (!plan) return;
 
-  const { planRepository } = context;
-  const [isChecked, setIsChecked] = useState(
-    planRepository.getPlanById(planId)?.getProblemById(problemId)?.[0] ?? false
-  );
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
+
+    try {
+      const updatedProblems = plan.problems.map<[boolean, Problem]>((p) => {
+        if (p[1].id === problemId) {
+          return [newCheckedState, p[1]];
+        }
+        return p;
+      });
+
+      await updatePlanProblems(planId, updatedProblems);
+    } catch (error) {
+      setIsChecked(!newCheckedState);
+      console.error("Update failed:", error);
+    }
+  };
+
   let borderColorClass: string;
   switch (difficulty) {
     case 0:
@@ -55,10 +71,7 @@ export default function ProblemNode({
           type="checkbox"
           className="sr-only peer"
           checked={isChecked}
-          onChange={(e) => {
-            planRepository.checkProblem(planId, problemId);
-            setIsChecked(e.target.checked);
-          }}
+          onChange={handleCheckboxChange}
         />
         <div className="w-5 h-5 rounded border-2 border-white peer-checked:bg-lightgreen transition-colors"></div>
       </label>

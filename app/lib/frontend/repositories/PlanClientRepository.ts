@@ -1,10 +1,11 @@
 import { ApiError } from "next/dist/server/api-utils";
 import { Plan } from "../../domain/Plan";
+import { Problem } from "../../domain/Problem";
 
 export class PlanClientRepository {
   private baseUrl = "/api/plans";
 
-  async getAllPlans(): Promise<Plan[]> {
+  async getAllPlans(): Promise<Array<Plan>> {
     const response = await fetch(this.baseUrl);
     if (!response.ok) {
       throw new ApiError(500, `Failed to fetch plans: ${response.statusText}`);
@@ -23,7 +24,7 @@ export class PlanClientRepository {
     return response.json();
   }
 
-  async createPlan(planData: Omit<Plan, "id">): Promise<Plan> {
+  async addPlan(planData: Omit<Plan, "id">): Promise<Plan> {
     const response = await fetch(this.baseUrl, {
       method: "POST",
       headers: {
@@ -42,27 +43,23 @@ export class PlanClientRepository {
     return response.json();
   }
 
-  async toggleProblemStatus(
+  async updatePlanProblems(
     planId: number,
-    problemId: number,
-    newIsCompleted: boolean
+    newProblems: Array<[boolean, Problem]>
   ): Promise<Plan> {
-    const response = await fetch(
-      `${this.baseUrl}/${planId}/problems/${problemId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ newIsCompleted }),
-      }
-    );
+    const response = await fetch(`${this.baseUrl}/${planId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ problems: newProblems }),
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
       throw new ApiError(
         response.status,
-        errorData.message || "Failed to toggle problem status"
+        errorData.message || "Failed to update plan problems"
       );
     }
     return response.json();

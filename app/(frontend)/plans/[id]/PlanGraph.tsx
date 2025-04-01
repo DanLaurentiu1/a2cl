@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { Plan } from "@/app/lib/domain/Plan";
-import ProblemNode from "@/app/ui/problems/ProblemNode";
 import { Edge, Node } from "reactflow";
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
-import ProblemEdge from "@/app/ui/problems/ProblemEdge";
+import ProblemNode from "@/app/lib/frontend/ui/problems/ProblemNode";
+import ProblemEdge from "@/app/lib/frontend/ui/problems/ProblemEdge";
 const nodeTypes = {
   problemNode: ProblemNode,
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Plan } from "../../domain/Plan";
 import ProgressBar from "./ProgressBar";
 import TopicTags from "../topics/TopicTags";
+import { Plan } from "@/app/lib/domain/Plan";
 
 export default function PlanCard({ plan }: { plan: Plan }) {
   const topics = Array.from(plan.topics);

@@ -1,21 +1,23 @@
+import { AriaAttributes } from "react";
 import { Plan } from "../../domain/Plan";
 import { INITIAL_PLANS } from "../../shared/data/plans";
 import { planValidator } from "../../shared/validation/PlanValidator";
+import { Problem } from "../../domain/Problem";
 
 class PlanStore {
-  private plans: Plan[];
+  private plans: Array<Plan>;
   private nextId: number;
 
-  constructor(initialData: Plan[]) {
+  constructor(initialData: Array<Plan>) {
     this.plans = [...initialData];
     this.nextId = Math.max(...initialData.map((p) => p.id)) + 1;
   }
 
-  getAll() {
+  public getAll(): Array<Plan> {
     return [...this.plans];
   }
 
-  getById(id: number): Plan {
+  public getById(id: number): Plan {
     const result = this.plans.find((plan) => plan.id === id);
     if (result === undefined) {
       throw new Error();
@@ -23,31 +25,42 @@ class PlanStore {
     return result;
   }
 
-  add(plan: Omit<Plan, "id">): void {
-    this.plans.push(
-      new Plan(this.nextId++, plan.title, plan.profile, plan.problems)
+  public add(plan: Omit<Plan, "id">): Plan {
+    const newPlan = new Plan(
+      this.nextId++,
+      plan.title,
+      plan.profile,
+      plan.problems
     );
+    this.plans.push(newPlan);
+    return newPlan;
   }
 
-  update(id: number, updates: Partial<Plan>): void {
+  public update(
+    id: number,
+    updates: { problems: Array<[boolean, Problem]> }
+  ): Plan {
     const index = this.plans.findIndex((plan) => plan.id === id);
     if (index === -1) {
-      throw new Error();
+      throw new Error(`Plan with ID ${id} not found`);
     }
 
     const current = this.plans[index];
+
     const updatedPlan = new Plan(
-      updates.id ?? current.id,
-      updates.title ?? current.title,
-      updates.profile ?? current.profile,
-      updates.problems ?? current.problems
+      current.id,
+      current.title,
+      current.profile,
+      updates.problems
     );
 
     this.plans[index] = updatedPlan;
+    return updatedPlan;
   }
 
-  delete(id: number): void {
+  public delete(id: number): Array<Plan> {
     this.plans = this.plans.filter((plan) => plan.id !== id);
+    return this.plans;
   }
 }
 
@@ -58,33 +71,31 @@ export class PlanServerRepository {
     this.planStore = new PlanStore(JSON.parse(JSON.stringify(INITIAL_PLANS)));
   }
 
-  getAllPlans(): Array<Plan> {
+  public getAllPlans(): Array<Plan> {
     return this.planStore.getAll();
   }
 
-  getPlanById(id: number): Plan {
+  public getPlanById(id: number): Plan {
     return this.planStore.getById(id);
   }
 
-  createPlan(planData: Omit<Plan, "id">): void {
+  public addPlan(planData: Omit<Plan, "id">): Plan {
     planValidator.validatePlan(planData);
-    this.planStore.add(planData);
+    return this.planStore.add(planData);
   }
 
-  toggleProblemStatus(planId: number, problemId: number): void {
+  public updatePlanProblems(
+    planId: number,
+    newProblems: Array<[boolean, Problem]>
+  ): Plan {
     const plan = this.planStore.getById(planId);
     if (!plan) throw new Error("Plan not found");
-
-    const updatedProblems = plan.problems.map((p) =>
-      p[1].id === problemId ? { ...p, isCompleted: !p[0] } : p
-    );
-
-    this.planStore.update(planId, { problems: updatedProblems });
+    return this.planStore.update(planId, { problems: newProblems });
   }
 
-  deletePlan(id: number) {
+  public deletePlan(id: number): Array<Plan> {
     const exists = this.planStore.getById(id);
-    if (!exists) return false;
+    if (!exists) throw new Error("Plan not found");
 
     return this.planStore.delete(id);
   }

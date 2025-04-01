@@ -1,21 +1,17 @@
 "use client";
-import { useContext, useState } from "react";
-import PlanCard from "@/app/ui/plans/PlanCard";
-import PlanContext from "@/app/context/PlanContext";
+import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
+import PlanCard from "@/app/lib/frontend/ui/plans/PlanCard";
+import { useState } from "react";
 
 export default function AllPlans() {
-  const context = useContext(PlanContext);
+  const { plans, loading, error } = usePlans();
   const [sortByName, setSortByName] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [plansPerPage] = useState(8);
 
-  if (!context) {
-    throw new Error("PlansList must be used within a PlanProvider");
-  }
+  if (loading) return <div>Loading plans...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  const { planRepository } = context;
-
-  const plans = planRepository.getPlans();
   const displayedPlans = sortByName
     ? [...plans].sort((a, b) => a.title.localeCompare(b.title))
     : plans;
