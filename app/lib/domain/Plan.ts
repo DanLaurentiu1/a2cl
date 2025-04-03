@@ -1,6 +1,14 @@
-import { Problem } from "./Problem";
-import { Profile } from "./Profile";
-import { Topic } from "./Topic";
+import { Problem, ProblemJSON } from "./Problem";
+import { Profile, ProfileJSON } from "./Profile";
+import { Topic, TopicJSON } from "./Topic";
+
+export interface PlanJSON {
+  id: number;
+  title: string;
+  profile: ProfileJSON;
+  problems: Array<[boolean, ProblemJSON]>;
+  topics?: Array<TopicJSON>;
+}
 
 export class Plan {
   private readonly _topics: Set<Topic>;
@@ -73,6 +81,46 @@ export class Plan {
       0
     );
     return Math.round((completedCount / this._problems.length) * 100);
+  }
+
+  public toJSON(): PlanJSON {
+    return {
+      id: this._id,
+      title: this._title,
+      profile: this._profile.toJSON(),
+      problems: this._problems.map(([completed, problem]) => [
+        completed,
+        problem.toJSON(),
+      ]),
+      topics: Array.from(this._topics).map((topic) => topic.toJSON()),
+    };
+  }
+
+  static fromJSON(json: PlanJSON): Plan {
+    if (!json?.id || !json?.title || !json?.profile) {
+      throw new Error("Invalid Plan JSON");
+    }
+
+    const problems = (json.problems || []).map(([completed, problemJson]) => [
+      completed,
+      Problem.fromJSON(problemJson),
+    ]) as Array<[boolean, Problem]>;
+
+    const plan = new Plan(
+      json.id,
+      json.title,
+      Profile.fromJSON(json.profile),
+      problems
+    );
+
+    if (json.topics) {
+      (plan as any)._topics = new Set(
+        json.topics.map((topicJson) => Topic.fromJSON(topicJson))
+      );
+    }
+
+    Object.setPrototypeOf(plan, Plan.prototype);
+    return plan;
   }
 
   public toString(): string {

@@ -1,4 +1,12 @@
-import { Topic } from "./Topic";
+import { Topic, TopicJSON } from "./Topic";
+
+export interface ProblemJSON {
+  id: number;
+  name: string;
+  topics: Array<TopicJSON>;
+  difficulty: 0 | 1 | 2;
+  acceptanceRate: number;
+}
 
 export class Problem {
   public constructor(
@@ -36,6 +44,35 @@ export class Problem {
   // ====================
   // Domain Methods
   // ====================
+
+  public toJSON(): ProblemJSON {
+    return {
+      id: this._id,
+      name: this._name,
+      topics: this._topics.map((topic) => topic.toJSON()),
+      difficulty: this._difficulty,
+      acceptanceRate: this._acceptanceRate,
+    };
+  }
+
+  static fromJSON(json: ProblemJSON): Problem {
+    if (
+      !json?.id ||
+      !json?.name ||
+      json.difficulty === undefined ||
+      json.acceptanceRate === undefined
+    ) {
+      throw new Error("Invalid Problem JSON");
+    }
+
+    return new Problem(
+      json.id,
+      json.name,
+      json.topics.map((topicJson) => Topic.fromJSON(topicJson)),
+      json.difficulty,
+      json.acceptanceRate
+    );
+  }
 
   public toString(): string {
     return `Problem(id:${this._id}, name:${this._name}, topics:${this._topics}, difficulty:${this._difficulty}, acceptanceRate:${this._acceptanceRate})`;
