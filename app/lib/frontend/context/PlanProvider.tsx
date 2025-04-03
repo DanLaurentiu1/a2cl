@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext, useEffect, useState } from "react";
 import { PlanClientRepository } from "../repositories/PlanClientRepository";
 import { Plan } from "../../domain/Plan";
@@ -8,10 +10,9 @@ export const PlanProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [plans, setPlans] = useState<Array<Plan>>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const repo = new PlanClientRepository();
-
   const getPlans = async () => {
     setLoading(true);
     try {

@@ -6,7 +6,7 @@ import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
 import TopicTags from "@/app/lib/frontend/ui/topics/TopicTags";
 import { getTopicByName } from "@/app/lib/shared/data/topics";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function AddPage() {
@@ -42,7 +42,6 @@ export default function AddPage() {
     try {
       const newProfile = new Profile(profileName, formData.fromLeetcode);
       const newPlan = new Plan(0, planTitle, newProfile, []);
-
       await addPlan(newPlan);
       setFormData({
         profileName: "",

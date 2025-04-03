@@ -11,7 +11,7 @@ export default function AllPlans() {
 
   if (loading) return <div>Loading plans...</div>;
   if (error) return <div>Error: {error}</div>;
-
+  console.log(plans);
   const displayedPlans = sortByName
     ? [...plans].sort((a, b) => a.title.localeCompare(b.title))
     : plans;
@@ -19,9 +19,7 @@ export default function AllPlans() {
   const indexOfLastPlan = currentPage * plansPerPage;
   const indexOfFirstPlan = indexOfLastPlan - plansPerPage;
   const currentPlans = displayedPlans.slice(indexOfFirstPlan, indexOfLastPlan);
-
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
   const totalPages = Math.ceil(displayedPlans.length / plansPerPage);
 
   return (
@@ -36,8 +34,8 @@ export default function AllPlans() {
         {sortByName ? "Unsort" : "Sort"}
       </button>
       <div className="grid grid-cols-4 gap-32">
-        {currentPlans.map((plan) => (
-          <PlanCard key={plan.id} plan={plan} />
+        {currentPlans.map((plan, index) => (
+          <PlanCard key={plan.id || `plan-${index}`} plan={plan} /> //fallback key
         ))}
       </div>
       <div className="fixed bottom-4 left-68 right-0 flex justify-center items-center">

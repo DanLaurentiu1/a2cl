@@ -1,7 +1,7 @@
 "use client";
 import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
 import PlanGraph from "./PlanGraph";
-import { use, useContext } from "react";
+import { use } from "react";
 
 export default function PlanPage({
   params,

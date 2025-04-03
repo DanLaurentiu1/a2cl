@@ -23,6 +23,7 @@ export const ALL_TOPICS: readonly Topic[] = [
   new Topic("Queue", TopicTypes.DataStructures),
   new Topic("Suffix Array", TopicTypes.DataStructures),
 
+  new Topic("Sliding Window", TopicTypes.Algorithms),
   new Topic("Two Pointers", TopicTypes.Algorithms),
   new Topic("Divide and Conquer", TopicTypes.Algorithms),
   new Topic("Radix Sort", TopicTypes.Algorithms),

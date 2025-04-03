@@ -2,7 +2,7 @@ import { Plan } from "../../domain/Plan";
 import { getProblemById } from "./problems";
 import { getProfileByName } from "./profiles";
 
-export const INITIAL_PLANS: readonly Plan[] = [
+export const INITIAL_PLANS: Plan[] = [
   new Plan(1, "Plan 1", getProfileByName("Profile 1"), [
     [true, getProblemById(1)],
     [true, getProblemById(2)],
