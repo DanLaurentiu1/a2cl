@@ -1,5 +1,5 @@
 import { ApiError } from "next/dist/server/api-utils";
-import { Plan } from "../../domain/Plan";
+import { Plan, PlanJSON } from "../../domain/Plan";
 import { Problem } from "../../domain/Problem";
 
 export class PlanClientRepository {
@@ -10,7 +10,8 @@ export class PlanClientRepository {
     if (!response.ok) {
       throw new ApiError(500, `Failed to fetch plans: ${response.statusText}`);
     }
-    return response.json();
+    const jsonData: Array<PlanJSON> = await response.json();
+    return jsonData.map((planJson) => Plan.fromJSON(planJson));
   }
 
   async getPlanById(id: number): Promise<Plan> {
@@ -21,7 +22,8 @@ export class PlanClientRepository {
       }
       throw new ApiError(500, `Failed to fetch plan: ${response.statusText}`);
     }
-    return response.json();
+    const jsonData: PlanJSON = await response.json();
+    return Plan.fromJSON(jsonData);
   }
 
   async addPlan(planData: Omit<Plan, "id">): Promise<Plan> {
@@ -30,7 +32,7 @@ export class PlanClientRepository {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(planData),
+      body: JSON.stringify(planData.toJSON()),
     });
 
     if (!response.ok) {
@@ -40,19 +42,25 @@ export class PlanClientRepository {
         errorData.message || "Failed to create plan"
       );
     }
-    return response.json();
+    const jsonData: PlanJSON = await response.json();
+    return Plan.fromJSON(jsonData);
   }
 
   async updatePlanProblems(
     planId: number,
     newProblems: Array<[boolean, Problem]>
   ): Promise<Plan> {
+    const problemsJson = newProblems.map(([completed, problem]) => [
+      completed,
+      problem.toJSON(),
+    ]);
+
     const response = await fetch(`${this.baseUrl}/${planId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ problems: newProblems }),
+      body: JSON.stringify({ problems: problemsJson }),
     });
 
     if (!response.ok) {
@@ -62,7 +70,8 @@ export class PlanClientRepository {
         errorData.message || "Failed to update plan problems"
       );
     }
-    return response.json();
+    const jsonData: PlanJSON = await response.json();
+    return Plan.fromJSON(jsonData);
   }
 
   async deletePlan(id: number): Promise<void> {

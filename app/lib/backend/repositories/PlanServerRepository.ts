@@ -68,7 +68,7 @@ export class PlanServerRepository {
   private planStore: PlanStore;
 
   constructor() {
-    this.planStore = new PlanStore(JSON.parse(JSON.stringify(INITIAL_PLANS)));
+    this.planStore = new PlanStore(INITIAL_PLANS);
   }
 
   public getAllPlans(): Array<Plan> {
