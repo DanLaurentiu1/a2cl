@@ -30,7 +30,7 @@ export const PlanProvider: React.FC<{ children: React.ReactNode }> = ({
     getPlans();
   }, []);
 
-  const addPlan = async (planData: Omit<Plan, "id">) => {
+  const addPlan = async (planData: Plan) => {
     setLoading(true);
     try {
       const newPlan = await repo.addPlan(planData);

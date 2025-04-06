@@ -6,7 +6,7 @@ type PlanContextType = {
   plans: Array<Plan>;
   loading: boolean;
   error: string | null;
-  addPlan: (planData: Omit<Plan, "id">) => Promise<void>;
+  addPlan: (planData: Plan) => Promise<void>;
   updatePlanProblems: (
     planId: number,
     problems: Array<[boolean, Problem]>

@@ -55,7 +55,9 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    planServerRepository.deletePlan(Number(params.id));
+    const { id } = await params;
+    const planId = Number(id);
+    planServerRepository.deletePlan(Number(planId));
     return new Response(null, { status: 204 });
   } catch (error) {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });

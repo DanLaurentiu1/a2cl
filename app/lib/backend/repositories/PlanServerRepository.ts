@@ -79,7 +79,7 @@ export class PlanServerRepository {
     return this.planStore.getById(id);
   }
 
-  public addPlan(planData: Omit<Plan, "id">): Plan {
+  public addPlan(planData: Plan): Plan {
     planValidator.validatePlan(planData);
     return this.planStore.add(planData);
   }

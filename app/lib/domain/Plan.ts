@@ -97,10 +97,16 @@ export class Plan {
   }
 
   static fromJSON(json: PlanJSON): Plan {
-    if (!json?.id || !json?.title || !json?.profile) {
+    if (
+      json?.id === undefined ||
+      json?.id === null ||
+      json?.title === undefined ||
+      json?.title === null ||
+      json?.profile === null ||
+      json?.profile === undefined
+    ) {
       throw new Error("Invalid Plan JSON");
     }
-
     const problems = (json.problems || []).map(([completed, problemJson]) => [
       completed,
       Problem.fromJSON(problemJson),

@@ -11,7 +11,6 @@ export default function AllPlans() {
 
   if (loading) return <div>Loading plans...</div>;
   if (error) return <div>Error: {error}</div>;
-  console.log(plans);
   const displayedPlans = sortByName
     ? [...plans].sort((a, b) => a.title.localeCompare(b.title))
     : plans;
