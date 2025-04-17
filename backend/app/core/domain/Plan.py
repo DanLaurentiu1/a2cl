@@ -93,15 +93,9 @@ class Plan:
             if json_data.topics:
                 plan._topics = {Topic.from_json(t) for t in json_data.topics}
             return plan
-        except KeyError as e:
-            raise ValueError(f"Missing required field: {str(e)}")
         except Exception as e:
-            raise ValueError(f"Invalid plan data: {str(e)}")
+            raise ValueError(f"Invalid Plan JSON")
     
-    def __str__(self) -> str:
-        return (f"Plan(id:{self._id}, title:'{self._title}', "
-                f"{self.get_percentage_completed()}% completed)")
-
     def _calculate_topics(self) -> Set[Topic]:
         topics = set()
         for _, problem in self._problems:

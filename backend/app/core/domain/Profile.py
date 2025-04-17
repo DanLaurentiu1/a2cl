@@ -39,9 +39,6 @@ class Profile:
             }
 
         return profile
-
-    def __str__(self) -> str:
-        return f"Profile(name:{self._name}, proficiencies:{self._proficiencies})"
-
+    
     def _create_default_proficiencies(self) -> Dict[Topic, int]:
         return {topic: 0 for topic in ALL_TOPICS}

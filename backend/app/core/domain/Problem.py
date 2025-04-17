@@ -59,8 +59,3 @@ class Problem:
             difficulty=json.difficulty,
             acceptanceRate=json.acceptanceRate
         )
-
-    def __str__(self) -> str:
-        return (f"Problem(id:{self._id}, name:{self._name}, "
-                f"topics:{self._topics}, difficulty:{self._difficulty}, "
-                f"acceptanceRate:{self._acceptanceRate})")
