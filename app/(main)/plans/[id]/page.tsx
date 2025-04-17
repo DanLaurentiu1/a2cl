@@ -1,5 +1,5 @@
 "use client";
-import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
+import { usePlans } from "@/app/components/providers/PlanProvider";
 import PlanGraph from "./PlanGraph";
 import { use } from "react";
 

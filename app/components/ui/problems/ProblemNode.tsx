@@ -1,9 +1,9 @@
 "use client";
 import { Problem } from "@/app/lib/domain/Problem";
 import { Handle, NodeProps, Position } from "reactflow";
-import { useContext, useState } from "react";
-import { usePlans } from "../../context/PlanProvider";
+import { useState } from "react";
 import { Plan } from "@/app/lib/domain/Plan";
+import { usePlans } from "../../providers/PlanProvider";
 export default function ProblemNode({
   data: { planId, problemId, name, acceptanceRate, difficulty },
 }: NodeProps<{

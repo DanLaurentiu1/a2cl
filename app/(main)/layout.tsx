@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import SidePannel from "../lib/frontend/ui/dashboard/SidePannel";
-import { PlanProvider } from "../lib/frontend/context/PlanProvider";
+import "../styles/globals.css";
+import SidePannel from "../components/ui/dashboard/SidePannel";
+import { PlanProvider } from "../components/providers/PlanProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

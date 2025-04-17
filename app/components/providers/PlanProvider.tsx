@@ -1,10 +1,10 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { PlanClientRepository } from "../repositories/PlanClientRepository";
-import { Plan } from "../../domain/Plan";
-import { Problem } from "../../domain/Problem";
 import { PlanContext } from "./PlanContext";
+import { Plan } from "@/app/lib/domain/Plan";
+import { PlanClientRepository } from "@/app/lib/repositories/PlanClientRepository";
+import { Problem } from "@/app/lib/domain/Problem";
 
 export const PlanProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

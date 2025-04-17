@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
-import { usePlans } from "../../context/PlanProvider";
+import { usePlans } from "../../providers/PlanProvider";
 
 export default function PlansList() {
   const { plans, loading, error, deletePlan } = usePlans();

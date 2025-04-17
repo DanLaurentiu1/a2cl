@@ -1,9 +1,9 @@
 import { ApiError } from "next/dist/server/api-utils";
-import { Plan, PlanJSON } from "../../domain/Plan";
-import { Problem } from "../../domain/Problem";
+import { Plan, PlanJSON } from "../domain/Plan";
+import { Problem } from "../domain/Problem";
 
 export class PlanClientRepository {
-  private baseUrl = "/api/plans";
+  private baseUrl: string = "http://localhost:8000/api/plans/";
 
   async getAllPlans(): Promise<Array<Plan>> {
     const response = await fetch(this.baseUrl);
@@ -15,7 +15,7 @@ export class PlanClientRepository {
   }
 
   async getPlanById(id: number): Promise<Plan> {
-    const response = await fetch(`${this.baseUrl}/${id}`);
+    const response = await fetch(`${this.baseUrl}${id}`);
     if (!response.ok) {
       if (response.status === 404) {
         throw new ApiError(404, `Plan with ID ${id} not found`);
@@ -55,7 +55,7 @@ export class PlanClientRepository {
       problem.toJSON(),
     ]);
 
-    const response = await fetch(`${this.baseUrl}/${planId}`, {
+    const response = await fetch(`${this.baseUrl}${planId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export class PlanClientRepository {
   }
 
   async deletePlan(id: number): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/${id}`, {
+    const response = await fetch(`${this.baseUrl}${id}`, {
       method: "DELETE",
     });
 

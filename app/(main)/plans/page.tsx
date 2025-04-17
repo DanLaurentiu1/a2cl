@@ -1,6 +1,6 @@
 "use client";
-import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
-import PlanCard from "@/app/lib/frontend/ui/plans/PlanCard";
+import { usePlans } from "@/app/components/providers/PlanProvider";
+import PlanCard from "@/app/components/ui/plans/PlanCard";
 import { useState } from "react";
 
 export default function AllPlans() {

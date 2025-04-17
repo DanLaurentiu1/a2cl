@@ -2,12 +2,12 @@
 import { Plan } from "@/app/lib/domain/Plan";
 import { Profile } from "@/app/lib/domain/Profile";
 import { Topic } from "@/app/lib/domain/Topic";
-import { usePlans } from "@/app/lib/frontend/context/PlanProvider";
-import TopicTags from "@/app/lib/frontend/ui/topics/TopicTags";
+import TopicTags from "@/app/components/ui/topics/TopicTags";
 import { getTopicByName } from "@/app/lib/shared/data/topics";
 import Link from "next/link";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { usePlans } from "@/app/components/providers/PlanProvider";
 
 export default function AddPage() {
   const { addPlan } = usePlans();

@@ -4,8 +4,8 @@ import { Plan } from "@/app/lib/domain/Plan";
 import { Edge, Node } from "reactflow";
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
-import ProblemNode from "@/app/lib/frontend/ui/problems/ProblemNode";
-import ProblemEdge from "@/app/lib/frontend/ui/problems/ProblemEdge";
+import ProblemNode from "@/app/components/ui/problems/ProblemNode";
+import ProblemEdge from "@/app/components/ui/problems/ProblemEdge";
 const nodeTypes = {
   problemNode: ProblemNode,
 };

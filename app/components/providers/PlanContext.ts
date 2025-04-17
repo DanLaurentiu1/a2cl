@@ -1,6 +1,6 @@
+import { Plan } from "@/app/lib/domain/Plan";
+import { Problem } from "@/app/lib/domain/Problem";
 import { createContext } from "react";
-import { Problem } from "../../domain/Problem";
-import { Plan } from "../../domain/Plan";
 
 type PlanContextType = {
   plans: Array<Plan>;
