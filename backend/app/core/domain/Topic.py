@@ -24,6 +24,3 @@ class Topic:
         if not json.name or not json.type:
             raise ValueError("Invalid Topic JSON")
         return self(json.name, TopicTypes(json.type))
-
-    def __str__(self) -> str:
-        return f"Topic(name:{self._name}, type:{self._type.name})"
