@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
-    const plan = planServerRepository.getPlanById(Number(params.id));
+    const { id } = await params;
+    const planId = Number(id);
+    const plan = planServerRepository.getPlanById(Number(planId));
     return NextResponse.json(plan);
   } catch (error) {
     return NextResponse.json({ error: "Plan not found" }, { status: 404 });

@@ -1,4 +1,3 @@
-import { AriaAttributes } from "react";
 import { Plan } from "../../domain/Plan";
 import { INITIAL_PLANS } from "../../shared/data/plans";
 import { planValidator } from "../../shared/validation/PlanValidator";
