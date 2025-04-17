@@ -27,6 +27,7 @@ export class PlanClientRepository {
   }
 
   async addPlan(planData: Plan): Promise<Plan> {
+    console.log(JSON.stringify(planData.toJSON()));
     const response = await fetch(this.baseUrl, {
       method: "POST",
       headers: {

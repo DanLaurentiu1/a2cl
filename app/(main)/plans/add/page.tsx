@@ -17,7 +17,6 @@ export default function AddPage() {
     profileName: "",
     planTitle: "",
     topicName: "",
-    fromLeetcode: false,
   });
 
   const handleAddTopic = () => {
@@ -40,14 +39,13 @@ export default function AddPage() {
     }
 
     try {
-      const newProfile = new Profile(profileName, formData.fromLeetcode);
-      const newPlan = new Plan(0, planTitle, newProfile, []);
+      const newProfile = new Profile(profileName);
+      const newPlan = new Plan(1, planTitle, newProfile, []);
       await addPlan(newPlan);
       setFormData({
         profileName: "",
         planTitle: "",
         topicName: "",
-        fromLeetcode: false,
       });
       setTopics([]);
     } catch (error) {
@@ -70,17 +68,6 @@ export default function AddPage() {
             }
             className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
           />
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={formData.fromLeetcode}
-              onChange={(e) =>
-                setFormData({ ...formData, fromLeetcode: e.target.checked })
-              }
-              className="w-5 h-5"
-            />
-            <span className="text-white">From Leetcode</span>
-          </label>
         </div>
         <input
           type="text"

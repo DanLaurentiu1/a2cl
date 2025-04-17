@@ -4,10 +4,10 @@ export interface TopicJSON {
 }
 
 export enum TopicTypes {
-  DataStructures,
-  Algorithms,
-  Concepts,
-  Miscellaneous,
+  DataStructures = "DataStructures",
+  Algorithms = "Algorithms",
+  Concepts = "Concepts",
+  Miscellaneous = "Miscellaneous",
 }
 
 export class Topic {

@@ -3,16 +3,12 @@ import { Topic, TopicJSON } from "./Topic";
 
 export interface ProfileJSON {
   name: string;
-  fromLeetcode: boolean;
   proficiencies: [TopicJSON, number][];
 }
 
 export class Profile {
   private readonly _proficiencies: Map<Topic, number>;
-  public constructor(
-    private readonly _name: string,
-    private readonly _fromLeetcode: boolean
-  ) {
+  public constructor(private readonly _name: string) {
     this._proficiencies = this.createDefaultProficiencies();
   }
 
@@ -28,10 +24,6 @@ export class Profile {
     return this._proficiencies;
   }
 
-  public get fromLeetcode(): boolean {
-    return this._fromLeetcode;
-  }
-
   // ====================
   // Domain Methods
   // ====================
@@ -39,7 +31,6 @@ export class Profile {
   public toJSON(): ProfileJSON {
     return {
       name: this._name,
-      fromLeetcode: this._fromLeetcode,
       proficiencies: Array.from(this._proficiencies.entries()).map(
         ([topic, value]) => [topic.toJSON(), value]
       ),
@@ -47,11 +38,11 @@ export class Profile {
   }
 
   static fromJSON(json: ProfileJSON): Profile {
-    if (!json?.name || json.fromLeetcode === undefined) {
+    if (!json?.name) {
       throw new Error("Invalid Profile JSON");
     }
 
-    const profile = new Profile(json.name, json.fromLeetcode);
+    const profile = new Profile(json.name);
 
     if (json.proficiencies) {
       (profile as any)._proficiencies = new Map(
@@ -66,7 +57,7 @@ export class Profile {
   }
 
   public toString(): string {
-    return `Profile(name:${this._name}, proficiencies:${this._proficiencies}, fromLeetcode:${this._fromLeetcode})`;
+    return `Profile(name:${this._name}, proficiencies:${this._proficiencies})`;
   }
 
   // ====================
