@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api.routes.plans import router as plans_router
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.database.database import seed_database
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -14,3 +15,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+def on_startup():
+    seed_database()
