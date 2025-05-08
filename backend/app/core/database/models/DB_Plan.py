@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import Session
-from app.core.database.models import DB_Plan, DB_Profile, DB_Problem
-
+from app.core.database.models.DB_Profile import DB_Profile
+from app.core.database.models.DB_Problem import DB_Problem
 from app.core.domain import Plan
 from app.core.database.base import Base
 
@@ -20,12 +20,12 @@ class DB_Plan(Base):
 
         problems_list = []
         for problem_data in self.problems:
-            problem_id = problem_data[0]
-            completed = problem_data[1]
+            completed = problem_data[0]
+            problem_id = problem_data[1]
             db_problem: DB_Problem = session.query(DB_Problem).get(problem_id)
             if db_problem:
                 problems_list.append((completed, db_problem.to_entity()))
-        
+
         return Plan(
             id=self.id,
             title=self.title,

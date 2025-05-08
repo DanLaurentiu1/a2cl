@@ -19,7 +19,7 @@ class DB_Problem(Base):
         return Problem(
             id=self.id,
             name=self.name,
-            topics=[Topic(name=topic['name'], type=TopicTypes(topic['type'])) 
+            topics=[Topic(name=topic['name'], topic_type=TopicTypes(topic['type'])) 
                     for topic in self.topics],
             difficulty=self.difficulty,
             acceptance_rate=self.acceptance_rate

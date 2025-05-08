@@ -14,7 +14,6 @@ class DB_Profile(Base):
     
     def to_entity(self) -> 'Profile':
         profile = Profile(self.name)
-   
         profile._proficiencies = {
             Topic(name=topic_name, topic_type=TopicTypes(topic_data["type"])): topic_data["proficiency"]
             for topic_name, topic_data in self.proficiencies.items()
@@ -35,3 +34,6 @@ class DB_Profile(Base):
             name=profile.name,
             proficiencies=proficiencies_json
         )
+
+    def __repr__(self):
+        return f"DB_Profile(id={self.id}, name={self.name}, proficiencies={self.proficiencies})"
