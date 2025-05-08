@@ -23,7 +23,7 @@ export default function AddPage() {
 
     try {
       const newProfile = new Profile(profileName);
-      const newPlan = new Plan(1, planTitle, newProfile, []);
+      const newPlan = new Plan(123123, planTitle, newProfile, []);
       await addPlan(newPlan);
       setFormData({
         profileName: "",
