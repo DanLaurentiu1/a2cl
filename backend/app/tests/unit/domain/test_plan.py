@@ -12,11 +12,11 @@ def sample_plan_no_problems():
 
 @pytest.fixture
 def sample_plan_valid():
-    return Plan(id=1, title="test", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title="test", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 @pytest.fixture
 def sample_plan_invalid():
-    return Plan(id=1, title="", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title="", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 def test_plan_object_creation(sample_plan_valid):
     assert sample_plan_valid is not None

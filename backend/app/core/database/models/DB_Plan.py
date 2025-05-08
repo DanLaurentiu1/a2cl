@@ -1,9 +1,9 @@
 from sqlalchemy import JSON, Column, ForeignKey, Integer, String
-from app.core.database.base import Base
-from app.core.database.models import DB_Problem, DB_Profile
 from sqlalchemy.orm import Session
+from app.core.database.models import DB_Plan, DB_Profile, DB_Problem
 
 from app.core.domain import Plan
+from app.core.database.base import Base
 
 class DB_Plan(Base):
     __tablename__ = 'plans'

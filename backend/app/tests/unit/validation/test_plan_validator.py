@@ -8,19 +8,19 @@ from app.core.domain import Plan, Problem, Topic
 
 @pytest.fixture
 def plan_valid():
-    return Plan(id=1, title="test", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title="test", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 @pytest.fixture
 def plan_empty_title_not_string():
-    return Plan(id=1, title=123, profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title=123, profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 @pytest.fixture
 def plan_title_length_over_cap():
-    return Plan(id=1, title="testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title="testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 @pytest.fixture
 def plan_title_with_special_characters():
-    return Plan(id=1, title="test!!", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)]])
+    return Plan(id=1, title="test!!", profile=Profile(name="test"), problems=[[0, Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)]])
 
 def test_validate_plan_valid(plan_valid):
     assert plan_validator.validate_plan(plan_valid) is None

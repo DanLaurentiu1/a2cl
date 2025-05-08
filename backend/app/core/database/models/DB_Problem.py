@@ -22,7 +22,7 @@ class DB_Problem(Base):
             topics=[Topic(name=topic['name'], type=TopicTypes(topic['type'])) 
                     for topic in self.topics],
             difficulty=self.difficulty,
-            acceptanceRate=self.acceptance_rate
+            acceptance_rate=self.acceptance_rate
         )
     
     @classmethod

@@ -5,11 +5,11 @@ from app.api.schemas.schemas import ProblemJSON, TopicTypes
 
 @pytest.fixture
 def sample_problem_valid():
-    return Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)
+    return Problem(id=1, name="test", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)
 
 @pytest.fixture
 def sample_problem_invalid():
-    return Problem(id=1, name="", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptanceRate=55.1)
+    return Problem(id=1, name="", topics=[Topic(name="test", topic_type=TopicTypes.CONCEPTS)], difficulty=1, acceptance_rate=55.1)
 
 def test_problem_object_creation(sample_problem_valid):
     assert sample_problem_valid is not None

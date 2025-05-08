@@ -11,13 +11,13 @@ class Problem:
         name: str,
         topics: List[Topic],
         difficulty: DifficultyLevel,
-        acceptanceRate: float
+        acceptance_rate: float
     ):
         self._id = id
         self._name = name
         self._topics = topics
         self._difficulty = difficulty
-        self._acceptanceRate = acceptanceRate
+        self._acceptanceRate = acceptance_rate
 
     @property
     def id(self) -> int:
