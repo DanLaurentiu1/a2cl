@@ -11,7 +11,7 @@ class DB_Plan(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False)
     profile_id = Column(Integer, ForeignKey('profiles.id'), nullable=False)
-    problems = Column(JSON, nullable=False)
+    problems = Column(JSON)
 
     def to_entity(self, session: Session) -> 'Plan':
         db_profile: DB_Profile = session.query(DB_Profile).get(self.profile_id)
