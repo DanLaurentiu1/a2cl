@@ -40,6 +40,23 @@ class Plan:
     def problems(self) -> List[Tuple[bool, Problem]]:
         return self._problems.copy()
 
+    @problems.setter
+    def problems(self, value: List[Tuple[bool, Problem]]) -> None:
+        if not isinstance(value, list):
+            raise ValueError("Problems must be a list")
+        
+        for item in value:
+            if not isinstance(item, tuple) or len(item) != 2:
+                raise ValueError("Each problem must be a (bool, Problem) tuple")
+            completed, problem = item
+            if not isinstance(completed, bool):
+                raise ValueError("First tuple element must be a boolean")
+            if not isinstance(problem, Problem):
+                raise ValueError("Second tuple element must be a Problem")
+        
+        self._problems = value.copy()
+        self._topics = self._calculate_topics()
+
     @property
     def topics(self) -> Set[Topic]:
         return self._topics.copy()
