@@ -26,8 +26,8 @@ class ProblemSeeder:
         "acceptance_rate": 44.5,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Math", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Recursion", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Math", "type": TopicTypes.CONCEPTS},
+            {"name": "Recursion", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -38,7 +38,7 @@ class ProblemSeeder:
         "topics": [
             {"name": "Hash Table", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Sliding Window", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Sliding Window", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -48,8 +48,8 @@ class ProblemSeeder:
         "acceptance_rate": 41.8,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Binary Search", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Divide and Conquer", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Binary Search", "type": TopicTypes.ALGORITHMS},
+            {"name": "Divide and Conquer", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -58,9 +58,9 @@ class ProblemSeeder:
         "difficulty": 1,
         "acceptance_rate": 34.7,
         "topics": [
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Dynamic Programming", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Dynamic Programming", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -78,7 +78,7 @@ class ProblemSeeder:
         "difficulty": 1,
         "acceptance_rate": 29.3,
         "topics": [
-            {"name": "Math", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Math", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -96,7 +96,7 @@ class ProblemSeeder:
         "difficulty": 0,
         "acceptance_rate": 57.8,
         "topics": [
-            {"name": "Math", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Math", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -106,8 +106,8 @@ class ProblemSeeder:
         "acceptance_rate": 28.5,
         "topics": [
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Dynamic Programming", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Recursion", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Dynamic Programming", "type": TopicTypes.ALGORITHMS},
+            {"name": "Recursion", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -117,8 +117,8 @@ class ProblemSeeder:
         "acceptance_rate": 56.4,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Greedy", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
+            {"name": "Greedy", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -160,8 +160,8 @@ class ProblemSeeder:
         "acceptance_rate": 35.6,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Sorting", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
+            {"name": "Sorting", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -171,8 +171,8 @@ class ProblemSeeder:
         "acceptance_rate": 46.2,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Sorting", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
+            {"name": "Sorting", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -183,7 +183,7 @@ class ProblemSeeder:
         "topics": [
             {"name": "Hash Table", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Backtracking", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Backtracking", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -193,8 +193,8 @@ class ProblemSeeder:
         "acceptance_rate": 36.9,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Sorting", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
+            {"name": "Sorting", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -204,7 +204,7 @@ class ProblemSeeder:
         "acceptance_rate": 47.1,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -224,7 +224,7 @@ class ProblemSeeder:
         "acceptance_rate": 65.6,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Recursion", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Recursion", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -234,8 +234,8 @@ class ProblemSeeder:
         "acceptance_rate": 75.8,
         "topics": [
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Dynamic Programming", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Backtracking", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Dynamic Programming", "type": TopicTypes.CONCEPTS},
+            {"name": "Backtracking", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -245,9 +245,9 @@ class ProblemSeeder:
         "acceptance_rate": 54.6,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Divide and Conquer", "type": TopicTypes.DATA_STRUCTURES},
+            {"name": "Divide and Conquer", "type": TopicTypes.CONCEPTS},
             {"name": "Heap (Priority Queue)", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Merge Sort", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Merge Sort", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -257,7 +257,7 @@ class ProblemSeeder:
         "acceptance_rate": 65.6,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Recursion", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Recursion", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -267,7 +267,7 @@ class ProblemSeeder:
         "acceptance_rate": 60.8,
         "topics": [
             {"name": "Linked List", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Recursion", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Recursion", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -277,7 +277,7 @@ class ProblemSeeder:
         "acceptance_rate": 58.1,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -287,7 +287,7 @@ class ProblemSeeder:
         "acceptance_rate": 58.6,
         "topics": [
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS}
         ]
     },
     {
@@ -296,9 +296,9 @@ class ProblemSeeder:
         "difficulty": 0,
         "acceptance_rate": 43.7,
         "topics": [
-            {"name": "Two Pointers", "type": TopicTypes.DATA_STRUCTURES},
+            {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "String Matching", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "String Matching", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -307,8 +307,8 @@ class ProblemSeeder:
         "difficulty": 1,
         "acceptance_rate": 17.8,
         "topics": [
-            {"name": "Math", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Bit Manipulation", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Math", "type": TopicTypes.CONCEPTS},
+            {"name": "Bit Manipulation", "type": TopicTypes.CONCEPTS}
         ]
     },
     {
@@ -319,7 +319,7 @@ class ProblemSeeder:
         "topics": [
             {"name": "Hash Table", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "String", "type": TopicTypes.DATA_STRUCTURES},
-            {"name": "Sliding Window", "type": TopicTypes.DATA_STRUCTURES}
+            {"name": "Sliding Window", "type": TopicTypes.ALGORITHMS}
         ]
     }        
     ]
