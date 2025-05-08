@@ -42,12 +42,8 @@ class PlanServerRepository:
             raise ValueError(f"Plan with ID {plan_id} not found")
         if not problems:
             raise ValueError("Problems list cannot be empty")
-        
-        # Update the problems in the plan
         plan.problems = problems
         db_plan = DB_Plan.from_entity(plan, self._db)
-        
-        # Merge changes back into the session
         self._db.merge(db_plan)
         self._db.commit()
         return self.get_plan(plan_id)

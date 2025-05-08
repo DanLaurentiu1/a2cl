@@ -5,11 +5,13 @@ from dotenv import load_dotenv
 from app.core.database.base import Base
 from app.core.database.seeds.TopicSeeder import TopicSeeder
 from app.core.database.seeds.ProfileSeeder import ProfileSeeder
+from app.core.database.seeds.ProblemSeeder import ProblemSeeder
+from app.core.database.seeds.PlanSeeder import PlanSeeder
 
 load_dotenv()
 
 DB_URL = os.getenv("DB_URL")
-engine = create_engine(DB_URL, echo=True)
+engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
@@ -24,6 +26,8 @@ def seed_database():
     try:
         TopicSeeder.run(db)
         ProfileSeeder.run(db)
+        ProblemSeeder.run(db)
+        PlanSeeder.run(db)
     finally:
         db.close()
 

@@ -64,7 +64,6 @@ async def update_plan_problems(
         updated_plan = repo.update_plan_problems(plan_id, problems)
         if not updated_plan:
             raise HTTPException(404, detail="Plan not found")
-            
         return updated_plan.to_json()
     except HTTPException:
         raise

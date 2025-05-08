@@ -55,7 +55,7 @@ class Problem:
         return self(
             id=json.id,
             name=json.name,
-            topics=[Topic.from_json(t) for t in json.topics],
+            topics=[Topic.from_json(topic) for topic in json.topics],
             difficulty=json.difficulty,
-            acceptanceRate=json.acceptanceRate
-        )
+            acceptance_rate=json.acceptanceRate
+        ) 
