@@ -17,12 +17,14 @@ class DB_Plan(Base):
         db_profile: DB_Profile = session.query(DB_Profile).get(self.profile_id)
         if db_profile:
             profile = db_profile.to_entity()
-            
+
         problems_list = []
         for problem_data in self.problems:
-            db_problem: DB_Problem = session.query(DB_Problem).get(problem_data["problem_id"])
+            completed = problem_data[0]
+            problem_id = problem_data[1]
+            db_problem: DB_Problem = session.query(DB_Problem).get(problem_id)
             if db_problem:
-                problems_list.append((problem_data["completed"], db_problem.to_entity()))
+                problems_list.append((completed, db_problem.to_entity()))
         return Plan(
             id=self.id,
             title=self.title,
@@ -39,7 +41,7 @@ class DB_Plan(Base):
             session.flush()
         
         problems_data = [
-            {"completed": bool(completed), "problem_id": int(problem.id)}
+            [bool(completed), int(problem.id)]
             for completed, problem in plan.problems
         ]
         

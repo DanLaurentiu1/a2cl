@@ -14,14 +14,14 @@ class PlanSeeder:
                 "title": "Beginner Array Practice",
                 "profile_id": 1,
                 "problems": [
-                    [True, 1],
-                    [True, 2],
-                    [True, 3],
-                    [True, 4],
-                    [True, 5],
-                    [True, 8],
-                    [False, 12],
-                    [False, 18]
+                    {"completed": True, "problem_id" : 1},
+                    {"completed": True, "problem_id" : 2},
+                    {"completed": True, "problem_id" : 3},
+                    {"completed": True, "problem_id" : 4},
+                    {"completed": True, "problem_id" : 5},
+                    {"completed": True, "problem_id" : 8},
+                    {"completed": False, "problem_id" : 12},
+                    {"completed": False, "problem_id" : 18},
                 ]
             },
             {
@@ -29,14 +29,14 @@ class PlanSeeder:
                 "title": "recursion prep",
                 "profile_id": 2, 
                 "problems": [
-                    [True, 11],
-                    [True, 12],
-                    [False, 13],
-                    [False, 14],
-                    [False, 15],
-                    [False, 16],
-                    [False, 17],
-                    [False, 18]
+                    {"completed": True, "problem_id" : 11},
+                    {"completed": True, "problem_id" : 12},
+                    {"completed": False, "problem_id" : 13},
+                    {"completed": False, "problem_id" : 14},
+                    {"completed": False, "problem_id" : 15},
+                    {"completed": False, "problem_id" : 16},
+                    {"completed": False, "problem_id" : 17},
+                    {"completed": False, "problem_id" : 18},
                 ]
             },
             {
@@ -44,18 +44,18 @@ class PlanSeeder:
                 "title": "graph important algorithms",
                 "profile_id": 3,
                 "problems": [
-                    [True, 18],
-                    [True, 19],
-                    [False, 20],
-                    [False, 21],
-                    [False, 22],
-                    [False, 23],
-                    [False, 24],
-                    [False, 25],
-                    [False, 26],
-                    [False, 27],
-                    [False, 28],
-                    [False, 29]
+                    {"completed": True, "problem_id" : 18},
+                    {"completed": True, "problem_id" : 19},
+                    {"completed": False, "problem_id" : 20},
+                    {"completed": False, "problem_id" : 21},
+                    {"completed": False, "problem_id" : 22},
+                    {"completed": False, "problem_id" : 23},
+                    {"completed": False, "problem_id" : 24},
+                    {"completed": False, "problem_id" : 25},
+                    {"completed": False, "problem_id" : 26},
+                    {"completed": False, "problem_id" : 27},
+                    {"completed": False, "problem_id" : 28},
+                    {"completed": False, "problem_id" : 29},
                 ]
             },
             {
@@ -63,10 +63,10 @@ class PlanSeeder:
                 "title": "dp mediums",
                 "profile_id": 4,
                 "problems": [
-                    [True, 12],
-                    [True, 25],
-                    [False, 26],
-                    [False, 29]
+                    {"completed": True, "problem_id" : 12},
+                    {"completed": True, "problem_id" : 25},
+                    {"completed": False, "problem_id" : 26},
+                    {"completed": False, "problem_id" : 29},
                 ]
             }
         ]
@@ -84,11 +84,11 @@ class PlanSeeder:
                     continue
                 
                 valid_problems = []
-                for completed, problem_id in plan_data["problems"]:
-                    if problem_id not in existing_problems_ids:
-                        print(f"Problem {problem_id} not found, skipping from plan {plan_data['id']}")
+                for problem_data in plan_data["problems"]:
+                    if problem_data["problem_id"] not in existing_problems_ids:
+                        print(f"Problem {problem_data["problem_id"]} not found, skipping from plan {plan_data['id']}")
                         continue
-                    valid_problems.append([completed, problem_id])
+                    valid_problems.append([problem_data["completed"], problem_data["problem_id"]])
                 
                 db_plan = DB_Plan(
                     id=plan_data["id"],
