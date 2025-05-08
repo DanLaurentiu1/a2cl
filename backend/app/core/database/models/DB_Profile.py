@@ -22,18 +22,17 @@ class DB_Profile(Base):
     
     @classmethod
     def from_entity(self, profile: 'Profile') -> 'DB_Profile':
-        proficiencies_json = {
-            topic.name: {
+        proficiencies_json = {}
+        for topic, level in profile.proficiencies.items():
+            proficiencies_json[topic.name] = {
                 "type": topic.type.value,
                 "proficiency": level
             }
-            for topic, level in profile.proficiencies.items()
-        }
-        
+            
         return self(
             name=profile.name,
             proficiencies=proficiencies_json
         )
-
+    
     def __repr__(self):
         return f"DB_Profile(id={self.id}, name={self.name}, proficiencies={self.proficiencies})"
