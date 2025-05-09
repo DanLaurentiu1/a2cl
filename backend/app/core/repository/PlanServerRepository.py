@@ -25,7 +25,7 @@ class PlanServerRepository:
     
     def add_plan(self, plan_data: Plan) -> Plan:
         plan_validator.validate_plan(plan_data)
-        
+
         db_plan = DB_Plan.from_entity(plan_data, self._db)
         self._db.add(db_plan)
         self._db.commit()
@@ -54,19 +54,3 @@ class PlanServerRepository:
             self._db.query(DB_Plan).filter(DB_Plan.id == plan_id).delete()
             self._db.commit()
         return plan
-    
-    def get_all_profiles(self) -> List[Profile]:
-        db_profiles = self._db.query(DB_Profile).all()
-        return [profile.to_entity() for profile in db_profiles]
-    
-    def get_profile(self, profile_id: int) -> Optional[Profile]:
-        db_profile = self._db.query(DB_Profile).filter(DB_Profile.id == profile_id).first()
-        return db_profile.to_entity() if db_profile else None
-    
-    def get_all_problems(self) -> List[Problem]:
-        db_problems = self._db.query(DB_Problem).all()
-        return [problem.to_entity() for problem in db_problems]
-    
-    def get_problem(self, problem_id: int) -> Optional[Problem]:
-        db_problem = self._db.query(DB_Problem).filter(DB_Problem.id == problem_id).first()
-        return db_problem.to_entity() if db_problem else None

@@ -46,7 +46,6 @@ class DB_Plan(Base):
         ]
         
         return cls(
-            id=plan.id,
             title=plan.title,
             profile_id=db_profile.id,
             problems=problems_data
