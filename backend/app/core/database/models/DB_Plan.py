@@ -8,7 +8,7 @@ from app.core.database.base import Base
 class DB_Plan(Base):
     __tablename__ = 'plans'
    
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(200), nullable=False)
     profile_id = Column(Integer, ForeignKey('profiles.id'), nullable=False)
     problems = Column(JSON)
@@ -33,7 +33,7 @@ class DB_Plan(Base):
         )
     
     @classmethod
-    def from_entity(cls, plan: 'Plan', session: Session) -> 'DB_Plan':
+    def from_entity(cls, plan: 'Plan', session: Session, adding: bool = False) -> 'DB_Plan':
         db_profile = session.query(DB_Profile).filter_by(name=plan.profile.name).first()
         if not db_profile:
             db_profile = DB_Profile.from_entity(plan.profile)
@@ -45,11 +45,19 @@ class DB_Plan(Base):
             for completed, problem in plan.problems
         ]
         
-        return cls(
-            title=plan.title,
-            profile_id=db_profile.id,
-            problems=problems_data
-        )
+        if adding:
+            return cls(
+                title=plan.title,
+                profile_id=db_profile.id,
+                problems=problems_data
+            )
+        else:
+            return cls(
+                id=plan.id,
+                title=plan.title,
+                profile_id=db_profile.id,
+                problems=problems_data
+            )
 
     def __repr__(self):
         return f"DB_Plan(id={self.id}, title={self.title}, profile_id={self.profile_id}, problems={self.problems})"

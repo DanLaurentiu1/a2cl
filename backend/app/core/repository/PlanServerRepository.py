@@ -26,7 +26,7 @@ class PlanServerRepository:
     def add_plan(self, plan_data: Plan) -> Plan:
         plan_validator.validate_plan(plan_data)
 
-        db_plan = DB_Plan.from_entity(plan_data, self._db)
+        db_plan = DB_Plan.from_entity(plan_data, self._db, adding=True)
         self._db.add(db_plan)
         self._db.commit()
         self._db.refresh(db_plan)
