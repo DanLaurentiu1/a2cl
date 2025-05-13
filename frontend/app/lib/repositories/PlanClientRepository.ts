@@ -3,7 +3,7 @@ import { Plan, PlanJSON } from "../domain/Plan";
 import { Problem } from "../domain/Problem";
 
 export class PlanClientRepository {
-  private baseUrl: string = "http://localhost:8000/api/plans/";
+  private baseUrl: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/plans/`;
 
   async getAllPlans(): Promise<Array<Plan>> {
     const response = await fetch(this.baseUrl);
