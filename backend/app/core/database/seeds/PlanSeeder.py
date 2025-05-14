@@ -86,7 +86,7 @@ class PlanSeeder:
                 valid_problems = []
                 for problem_data in plan_data["problems"]:
                     if problem_data["problem_id"] not in existing_problems_ids:
-                        print(f"Problem {problem_data["problem_id"]} not found, skipping from plan {plan_data['id']}")
+                        print(f"Problem {problem_data['problem_id']} not found, skipping from plan {plan_data['id']}")
                         continue
                     valid_problems.append([problem_data["completed"], problem_data["problem_id"]])
                 
