@@ -1,9 +1,9 @@
 import ast
 import pandas as pd
 
-from backend.app.model.utils.conversion.convert_difficulty import convert_difficulty
-from backend.app.model.utils.conversion.topic_name_to_type import topic_type_dict
-from backend.app.model.utils.conversion.clean_acceptance_rate import clean_acceptance_rate
+from app.model.utils.conversion.convert_difficulty import convert_difficulty
+from app.model.utils.conversion.topic_name_to_type import topic_type_dict
+from app.model.utils.conversion.clean_acceptance_rate import clean_acceptance_rate
 
 def convert_csv_to_json(path: str):
     df = pd.read_csv(path)
