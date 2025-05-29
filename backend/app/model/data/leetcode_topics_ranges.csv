@@ -1,36 +1,36 @@
 Topic,Difficulty,Low,Typical,High
-Merge Sort,0,30,40,45
+Merge Sort,0,-1,-1,-1
 Merge Sort,1,45,55,65
 Merge Sort,2,85,90,100
-Iterator,0,20,20,30
+Iterator,0,-1,-1,-1
 Iterator,1,50,55,60
-Iterator,2,80,90,100
+Iterator,2,-1,-1,-1
 Simulation,0,10,20,30
 Simulation,1,45,50,60
 Simulation,2,70,75,90
 Union Find,0,25,30,40
 Union Find,1,35,50,60
 Union Find,2,75,80,100
-Bucket Sort,0,5,25,30
+Bucket Sort,0,-1,-1,-1
 Bucket Sort,1,35,45,50
 Bucket Sort,2,70,80,90
 Rolling Hash,0,20,30,45
 Rolling Hash,1,45,55,65
 Rolling Hash,2,80,85,95
-Probability and Statistics,0,10,20,35
+Probability and Statistics,0,-1,-1,-1
 Probability and Statistics,1,45,55,65
 Probability and Statistics,2,80,80,100
-Reservoir Sampling,0,15,25,30
+Reservoir Sampling,0,-1,-1,-1
 Reservoir Sampling,1,30,45,55
-Reservoir Sampling,2,60,65,80
+Reservoir Sampling,2,-1,-1,-1
 Concurrency,0,10,30,35
 Concurrency,1,40,50,70
-Concurrency,2,70,80,95
+Concurrency,2,-1,-1,-1
 Math,0,5,10,30
 Math,1,30,50,70
 Math,2,75,80,100
-Line Sweep,0,10,25,35
-Line Sweep,1,45,50,60
+Line Sweep,0,-1,-1,-1
+Line Sweep,1,-1,-1,-1
 Line Sweep,2,75,80,95
 Binary Search,0,20,25,30
 Binary Search,1,30,40,55
@@ -38,27 +38,27 @@ Binary Search,2,60,75,100
 Doubly-Linked List,0,20,25,35
 Doubly-Linked List,1,40,50,60
 Doubly-Linked List,2,70,75,95
-Quickselect,0,5,15,25
+Quickselect,0,-1,-1,-1
 Quickselect,1,30,45,55
-Quickselect,2,70,80,95
+Quickselect,2,-1,-1,-1
 Greedy,0,30,35,40
 Greedy,1,40,55,70
 Greedy,2,70,85,100
-Suffix Array,0,15,25,30
-Suffix Array,1,50,55,60
+Suffix Array,0,-1,-1,-1
+Suffix Array,1,-1,-1,-1
 Suffix Array,2,80,85,100
 Linked List,0,20,35,40
 Linked List,1,40,45,65
 Linked List,2,65,80,100
-Randomized,0,20,25,35
+Randomized,0,-1,-1,-1
 Randomized,1,45,55,60
 Randomized,2,75,80,95
-Eulerian Circuit,0,15,20,30
-Eulerian Circuit,1,50,55,65
+Eulerian Circuit,0,-1,-1,-1
+Eulerian Circuit,1,-1,-1,-1
 Eulerian Circuit,2,80,85,100
-Radix Sort,0,10,20,25
+Radix Sort,0,-1,-1,-1
 Radix Sort,1,30,40,50
-Radix Sort,2,60,70,90
+Radix Sort,2,-1,-1,-1
 Backtracking,0,20,25,40
 Backtracking,1,50,55,75
 Backtracking,2,75,90,100
@@ -68,7 +68,7 @@ Memoization,2,75,80,90
 Geometry,0,5,25,35
 Geometry,1,35,40,60
 Geometry,2,55,80,100
-Binary Indexed Tree,0,15,20,30
+Binary Indexed Tree,0,-1,-1,-1
 Binary Indexed Tree,1,40,45,55
 Binary Indexed Tree,2,75,85,100
 Data Stream,0,25,30,40
@@ -82,7 +82,7 @@ Dynamic Programming,1,35,65,75
 Dynamic Programming,2,75,85,100
 Counting,0,25,30,35
 Counting,1,40,50,65
-Counting,2,75,80,90
+Counting,2,-1,-1,-1
 Enumeration,0,10,20,30
 Enumeration,1,40,50,55
 Enumeration,2,65,75,95
@@ -115,7 +115,7 @@ Shell,1,30,35,45
 Shell,2,-1,-1,-1
 Monotonic Queue,0,10,25,35
 Monotonic Queue,1,40,55,65
-Monotonic Queue,2,,,
+Monotonic Queue,2,-1,-1,-1
 Prefix Sum,0,10,25,35
 Prefix Sum,1,40,45,60
 Prefix Sum,2,65,80,90
@@ -176,7 +176,7 @@ Matrix,2,75,85,100
 Ordered Set,0,20,30,40
 Ordered Set,1,45,50,60
 Ordered Set,2,65,80,95
-Shortest Path,0,20,30,40
+Shortest Path,0,-1,-1,-1
 Shortest Path,1,40,45,55
 Shortest Path,2,65,75,100
 Two Pointers,0,10,20,30
@@ -191,7 +191,7 @@ Bitmask,2,70,80,95
 Biconnected Component,0,-1,-1,-1
 Biconnected Component,1,-1,-1,-1
 Biconnected Component,2,65,75,95
-Topological Sort,0,20,25,40
+Topological Sort,0,-1,-1,-1
 Topological Sort,1,40,50,55
 Topological Sort,2,70,75,90
 Heap (Priority Queue),0,20,25,35
