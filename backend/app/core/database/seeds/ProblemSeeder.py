@@ -4,7 +4,7 @@ from app.core.database.models.DB_Problem import DB_Problem
 from app.core.database.models.DB_Topic import DB_Topic
 from typing import List, Dict
 
-from app.model.utils.convert_csv_to_json import convert_csv_to_json
+from app.model.utils.conversion.convert_csv_to_json import convert_csv_to_json
 
 class ProblemSeeder:
     @staticmethod
