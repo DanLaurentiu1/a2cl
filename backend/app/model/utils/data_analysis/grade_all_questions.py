@@ -3,7 +3,7 @@ from collections import defaultdict
 import io
 import pandas as pd
 
-from backend.app.model.utils.model import load_problems_csv
+from backend.app.model.utils.model.load_problems_from_csv import load_problems_from_csv
 
 
 def create_inner_dict():
@@ -12,11 +12,10 @@ def create_inner_dict():
 
 def grade_all_questions(questions_file, questions_distributions_file, output_file):
     graded_questions = defaultdict(create_inner_dict)
-    questions = load_problems_csv(questions_file)
+    questions = load_problems_from_csv(questions_file)
     questions_distributions = pd.read_csv(questions_distributions_file)
     for question in questions.items():
         question_id = question[0]
-        print(f"question number {question_id}")
         question_name, question_topics, question_acceptance_rate, question_difficulty = question[1]
         for topic in question_topics:
             for index, row in questions_distributions.iterrows():

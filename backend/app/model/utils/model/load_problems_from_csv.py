@@ -2,7 +2,7 @@ import pandas as pd
 from collections import defaultdict
 
 
-def load_problems_csv(path):
+def load_problems_from_csv(path):
     problems = defaultdict(list)
     questions_df = pd.read_csv(path)
     for problem in questions_df.values:
