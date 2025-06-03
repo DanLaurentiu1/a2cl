@@ -8,6 +8,7 @@ export interface PlanJSON {
   profile: ProfileJSON;
   problems: Array<[boolean, ProblemJSON]>;
   topics?: Array<TopicJSON>;
+  given_topics: Array<TopicJSON>;
 }
 
 export class Plan {
@@ -17,7 +18,8 @@ export class Plan {
     private readonly _id: number,
     private _title: string,
     private readonly _profile: Profile,
-    private _problems: Array<[boolean, Problem]> = []
+    private _problems: Array<[boolean, Problem]> = [],
+    private _given_topics: Array<Topic> = []
   ) {
     this._topics = this.calculateTopics();
   }
@@ -40,6 +42,10 @@ export class Plan {
 
   public get problems(): Array<[boolean, Problem]> {
     return [...this._problems] as const;
+  }
+
+  public get given_topics(): Array<Topic> {
+    return [...this._given_topics] as const;
   }
 
   public get topics(): ReadonlySet<Topic> {
@@ -93,6 +99,7 @@ export class Plan {
         problem.toJSON(),
       ]),
       topics: Array.from(this._topics).map((topic) => topic.toJSON()),
+      given_topics: Array.from(this._given_topics).map((topic) => topic.toJSON()),
     };
   }
 
@@ -103,7 +110,9 @@ export class Plan {
       json?.title === undefined ||
       json?.title === null ||
       json?.profile === null ||
-      json?.profile === undefined
+      json?.profile === undefined ||
+      json?.given_topics === null ||
+      json?.given_topics === undefined
     ) {
       throw new Error("Invalid Plan JSON");
     }
@@ -112,11 +121,13 @@ export class Plan {
       Problem.fromJSON(problemJson),
     ]) as Array<[boolean, Problem]>;
 
+    const given_topics = (json.given_topics || []).map(topic_json => Topic.fromJSON(topic_json)) as Array<Topic>;
     const plan = new Plan(
       json.id,
       json.title,
       Profile.fromJSON(json.profile),
-      problems
+      problems,
+      given_topics
     );
 
     if (json.topics) {
@@ -130,7 +141,7 @@ export class Plan {
   }
 
   public toString(): string {
-    return `Plan(id:${this._id}, title:${this._title}, profile:${this._profile}, problems:${this._problems})`;
+    return `Plan(id:${this._id}, title:${this._title}, profile:${this._profile}, problems:${this._problems}, given_topics:${this._given_topics})`;
   }
 
   // ====================

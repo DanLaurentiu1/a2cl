@@ -1,17 +1,34 @@
 "use client";
 import { Plan } from "@/app/lib/domain/Plan";
 import { Profile } from "@/app/lib/domain/Profile";
+import { Topic } from "@/app/lib/domain/Topic";
+import TopicTags from "@/app/components/ui/topics/TopicTags";
+import { getTopicByName } from "@/app/lib/shared/data/topics";
 import Link from "next/link";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { usePlans } from "@/app/components/providers/PlanProvider";
 
 export default function AddPage() {
   const { addPlan } = usePlans();
 
+  const [topics, setTopics] = useState<Array<Topic>>([]);
   const [formData, setFormData] = useState({
     profileName: "",
     planTitle: "",
+    topicName: "",
   });
+
+  const handleAddTopic = () => {
+    const { topicName } = formData;
+    if (topicName.trim()) {
+      const topic = getTopicByName(topicName);
+      if (topic) {
+        setTopics([...topics, topic]);
+      }
+      setFormData((prev) => ({ ...prev, topicName: "" }));
+    }
+  };
 
   const handleAddPlan = async () => {
     const { profileName, planTitle } = formData;
@@ -23,12 +40,14 @@ export default function AddPage() {
 
     try {
       const newProfile = new Profile(profileName);
-      const newPlan = new Plan(1, planTitle, newProfile, []);
+      const newPlan = new Plan(1, planTitle, newProfile, [], topics);
       await addPlan(newPlan);
       setFormData({
         profileName: "",
         planTitle: "",
+        topicName: "",
       });
+      setTopics([]);
     } catch (error) {
       console.error("Failed to add plan:", error);
       alert("Failed to create plan. Please try again.");
@@ -59,6 +78,24 @@ export default function AddPage() {
           }
           className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
         />
+        <div className="flex p-2 w-full gap-12 rounded-lg items-center">
+          <input
+            type="text"
+            value={formData.topicName}
+            onChange={(e) =>
+              setFormData({ ...formData, topicName: e.target.value })
+            }
+            placeholder="Topic Name"
+            className="p-2 m-4 border-2 border-lightgreen rounded-lg text-white"
+          />
+          <button
+            onClick={handleAddTopic}
+            className="flex items-center justify-center w-9 h-9 text-white rounded-full border-2 border-lightgreen hover:border-orange transition-all duration-200"
+          >
+            <FaPlus className="text-base" />
+          </button>
+        </div>
+        <TopicTags topics={topics} />
         <div className="flex p-4 w-5/6 gap-4 rounded-lg items-center">
           <Link
             className="text-white w-full bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"
