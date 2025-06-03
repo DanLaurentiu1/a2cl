@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
@@ -10,8 +10,8 @@ from app.model.utils.model.load_problems_from_json import load_problems_from_jso
 
 NUMBER_OF_LEETCODE_PROBLEMS = 3465
 MAXIMUM_PROFICIENCY_SCORE = 100
-LEETCODE_QUESTIONS_PATH = "C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\data\\leetcode_problems_grading.json"
-LEETCODE_TOPICS_PATH = "C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\data\\leetcode_topics.csv"
+LEETCODE_QUESTIONS_PATH = Path(__file__).parent / 'data' / 'leetcode_problems_grading.json'
+LEETCODE_TOPICS_PATH = Path(__file__).parent / 'data' / 'leetcode_topics.csv'
 NUMBER_OF_RANDOM_SAMPLED_TOPICS = 1
 DEFAULT_SCORE = 15
 THRESHOLD_FOR_PROFICIENCIES = 85
@@ -99,9 +99,12 @@ class LeetcodeRecommenderEnv(gym.Env):
             self.target_vector[idx] = 1
 
     def step(self, action):
+        action += 1
         reward = self.transition_proficiencies(action)
         self.done_problems.append(int(action))
         terminated, truncated = self.get_done()
+
+        if terminated: reward += 100
         observation = self.get_observation()
         return observation, reward, terminated, truncated, {}
 
