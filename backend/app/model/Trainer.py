@@ -4,7 +4,7 @@ import os
 from stable_baselines3 import A2C
 from stable_baselines3.common.callbacks import BaseCallback
 
-from app.model import LeetcodeRecommenderEnv
+from app.model.LeetcodeRecommenderEnv import LeetcodeRecommenderEnv
 
 def create_inner_dict():
     return defaultdict(int)

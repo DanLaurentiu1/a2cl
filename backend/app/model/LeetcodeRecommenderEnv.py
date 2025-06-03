@@ -1,15 +1,16 @@
+import os
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 from collections import defaultdict
-
+from gymnasium.utils import seeding
 from app.model.utils.model.get_all_topics import get_all_topics
 from app.model.utils.model.load_default_proficiencies import load_default_proficiencies
-from app.model.utils.model.load_problems_from_pkl import load_problems_from_pkl
+from app.model.utils.model.load_problems_from_json import load_problems_from_json
 
 NUMBER_OF_LEETCODE_PROBLEMS = 3465
 MAXIMUM_PROFICIENCY_SCORE = 100
-LEETCODE_QUESTIONS_PATH = "C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\data\\leetcode_problems_grading.pkl"
+LEETCODE_QUESTIONS_PATH = "C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\data\\leetcode_problems_grading.json"
 LEETCODE_TOPICS_PATH = "C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\data\\leetcode_topics.csv"
 NUMBER_OF_RANDOM_SAMPLED_TOPICS = 1
 DEFAULT_SCORE = 15
@@ -17,20 +18,16 @@ THRESHOLD_FOR_PROFICIENCIES = 85
 THRESHOLD_FOR_PROBLEMS_DONE = 30
 
 
-def create_inner_dict():
-    return defaultdict(int)
-
-
 class LeetcodeRecommenderEnv(gym.Env):
     def __init__(self, target_topics_list: list[str] = None):
-        self.problems = load_problems_from_pkl(LEETCODE_QUESTIONS_PATH)
+        self.problems = load_problems_from_json(LEETCODE_QUESTIONS_PATH)
         self.current_proficiencies = load_default_proficiencies(LEETCODE_TOPICS_PATH, default_score=DEFAULT_SCORE)
         self.all_topics = get_all_topics(LEETCODE_TOPICS_PATH)
         self.done_problems: list[int] = []
         self.target_vector = np.zeros(len(self.all_topics), dtype=np.int8)
         self.given_targets = target_topics_list is not None
         self.targets = target_topics_list if self.given_targets else []
-
+        self.np_random, _ = seeding.np_random()
         self.observation_space = spaces.Dict({
             "proficiencies": spaces.MultiDiscrete(
                 [MAXIMUM_PROFICIENCY_SCORE] * len(self.all_topics)
@@ -45,9 +42,9 @@ class LeetcodeRecommenderEnv(gym.Env):
             return -10
 
         reward = 0
-        to_be_solved_problem: defaultdict[int] = self.problems[int(action)]
+        to_be_solved_problem: defaultdict[int] = self.problems[str(action)]
         for topic, score in to_be_solved_problem.items():
-            if topic in self.targets: reward += 5
+            if topic in self.targets: reward += 9
             current_score = self.current_proficiencies[topic]
             abs_difference = abs(current_score - score)
 
