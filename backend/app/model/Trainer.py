@@ -82,25 +82,31 @@ class LeetcodeTrainer:
         self.model.save(final_path)
         print(f"Training done! Final model saved to {final_path}.zip")
 
-    def evaluate(self, env_targets: list[str], num_episodes: int = 1, load_path: str = None):
+    def evaluate(self, env_targets: list[str], num_episodes: int = 10, load_path: str = None):
         if load_path is not None:
             self.model = self.load_model(env_targets, load_path)
         if self.model is None:
             raise ValueError("No model loaded or trained yet!")
 
         self.env = self.create_testing_env(topics=env_targets)
-        recommended_problems: list[int] = []
+        recommended_problems_final: list[int] = []
+        reward_final = 0
         print(f"Evaluating {num_episodes} episodes on targets={env_targets}")
         for episode in range(num_episodes):
             obs, _ = self.env.reset()
             done, truncated = False, False
             episode_reward, step_count = 0.0, 0
+            recommended_problems: list[int] = []
 
             while not done and not truncated:
                 action, _ = self.model.predict(obs, deterministic=False)
                 recommended_problems.append(int(action))
-                obs, reward, done, truncated, info = self.env.step(action)
+                obs, reward, done, truncated, _ = self.env.step(action)
                 episode_reward += reward
                 step_count += 1
+            if episode_reward >= reward_final:
+                reward_final = episode_reward
+                recommended_problems_final = recommended_problems.copy()
             print(f" Episode {episode + 1}: Steps={step_count}, Reward={episode_reward:.2f}")
-        return recommended_problems
+        print(f"Chosen reward: {reward_final}")
+        return recommended_problems_final
