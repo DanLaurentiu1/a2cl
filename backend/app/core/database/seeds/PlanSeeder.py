@@ -25,7 +25,7 @@ class PlanSeeder:
                     {"completed": False, "problem_id" : 18},
                 ],
                 "given_topics": [
-                    {"topic_id" : 3},
+                    {"topic_name" : "Array"},
                 ]
             },
             {
@@ -43,7 +43,7 @@ class PlanSeeder:
                     {"completed": False, "problem_id" : 18},
                 ],
                 "given_topics": [
-                    {"topic_id" : 62},
+                    {"topic_name" : "Recursion"},
                 ]
             },
             {
@@ -65,7 +65,7 @@ class PlanSeeder:
                     {"completed": False, "problem_id" : 29},
                 ],
                 "given_topics": [
-                    {"topic_id" : 14},
+                    {"topic_name" : "Graph"},
                 ]
             },
             {
@@ -79,7 +79,7 @@ class PlanSeeder:
                     {"completed": False, "problem_id" : 29},
                 ],
                 "given_topics": [
-                    {"topic_id" : 57},
+                    {"topic_name" : "Dynamic Programming"},
                 ]
             }
         ]
@@ -88,7 +88,7 @@ class PlanSeeder:
     def run(db: Session):
         existing_plan_ids = {plan.id for plan in db.query(DB_Plan).all()}
         existing_problems_ids = {problem.id for problem in db.query(DB_Problem).all()}
-        existing_topics_ids = {topic.id for topic in db.query(DB_Topic).all()}
+        existing_topics_names = {topic.name for topic in db.query(DB_Topic).all()}
 
         for plan_data in PlanSeeder.seed_data():
             if plan_data["id"] not in existing_plan_ids:
@@ -106,10 +106,10 @@ class PlanSeeder:
 
                 valid_topics = []
                 for topic_data in plan_data["given_topics"]:
-                    if topic_data["topic_id"] not in existing_topics_ids:
-                        print(f"Topic {topic_data['topic_id']} not found, skipping from plan {plan_data['id']}")
+                    if topic_data["topic_name"] not in existing_topics_names:
+                        print(f"Topic {topic_data['topic_name']} not found, skipping from plan {plan_data['id']}")
                         continue
-                    valid_topics.append(topic_data["topic_id"])
+                    valid_topics.append(topic_data["topic_name"])
 
                 db_plan = DB_Plan(
                     id=plan_data["id"],

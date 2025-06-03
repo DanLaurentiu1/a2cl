@@ -28,7 +28,7 @@ class DB_Plan(Base):
             if db_problem:
                 problems_list.append((completed, db_problem.to_entity()))
         for topic_name in self.given_topics:
-            db_topic: DB_Topic = session.query(DB_Topic).get(topic_name)
+            db_topic = session.query(DB_Topic).filter_by(name=topic_name).first()
             if db_topic:
                 given_topics_list.append(db_topic.to_entity())
 
