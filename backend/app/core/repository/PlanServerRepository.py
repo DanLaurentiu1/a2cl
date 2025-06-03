@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from typing import List, Tuple, Optional
 from sqlalchemy.orm import Session
 from app.core.domain import Plan, Problem, Profile
@@ -28,7 +30,6 @@ class PlanServerRepository:
     def create_plan_with_recommendations(self, plan_data: Plan) -> Plan:
         plan_validator.validate_plan(plan_data)
         plan_with_problems = self.add_problems_to_plan(plan_data)
-        print(5)
         return self.add_plan(plan_with_problems)
 
     def add_plan(self, plan_data: Plan) -> Plan:
@@ -39,8 +40,9 @@ class PlanServerRepository:
         return db_plan.to_entity(self._db)
     
     def add_problems_to_plan(self, plan_data: Plan) -> Plan:
+        model_path = Path(__file__).parent.parent.parent / 'model' / 'checkpoints' / 'final_model_500000.zip'
         topic_names = [topic.name for topic in plan_data.given_topics]
-        recommended_problem_ids = self._trainer.evaluate(env_targets=topic_names, num_episodes=1, load_path="C:\\Users\\Lau\\.vscode\\projects\\thesis\\backend\\app\\model\\checkpoints\\final_model_500000.zip")
+        recommended_problem_ids = self._trainer.evaluate(env_targets=topic_names, load_path=model_path)
         problems = []
         for problem_id in recommended_problem_ids:
             db_problem: DB_Problem = self._db.query(DB_Problem).get(problem_id)
