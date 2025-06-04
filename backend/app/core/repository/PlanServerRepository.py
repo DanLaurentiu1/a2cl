@@ -40,7 +40,7 @@ class PlanServerRepository:
         return db_plan.to_entity(self._db)
     
     def add_problems_to_plan(self, plan_data: Plan) -> Plan:
-        model_path = Path(__file__).parent.parent.parent / 'model' / 'checkpoints' / 'final_model_500000.zip'
+        model_path = Path(__file__).parent.parent.parent / 'model' / 'checkpoints' / 'final_model_200000.zip'
         topic_names = [topic.name for topic in plan_data.given_topics]
         recommended_problem_ids = self._trainer.evaluate(env_targets=topic_names, load_path=model_path)
         problems = []

@@ -224,7 +224,7 @@ class LeetcodeTrainer:
 
         self.env = self.create_testing_env(topics=env_targets)
         recommended_problems_final: list[int] = []
-        reward_final = 0
+        reward_final = -1e4
         print(f"Evaluating {num_episodes} episodes on targets={env_targets}")
         for episode in range(num_episodes):
             obs, _ = self.env.reset()
@@ -244,4 +244,5 @@ class LeetcodeTrainer:
                 recommended_problems_final = recommended_problems.copy()
             print(f" Episode {episode + 1}: Steps={step_count}, Reward={episode_reward:.2f}")
         print(f"Chosen reward: {reward_final}")
+        print(recommended_problems_final)
         return recommended_problems_final
