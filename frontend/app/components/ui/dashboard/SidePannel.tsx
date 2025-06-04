@@ -21,12 +21,6 @@ export default function SidePannel() {
         >
           View all Plans
         </Link>
-        <Link
-          className="text-white w-5/6 bg-lightgrey p-1 rounded-3xl border-2 border-lightgreen font-semibold flex items-center justify-center hover:border-orange transition-all duration-200"
-          href="/"
-        >
-          My account
-        </Link>
       </div>
     </div>
   );

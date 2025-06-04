@@ -34,7 +34,7 @@ export default function AllPlans() {
       </button>
       <div className="grid grid-cols-4 gap-32">
         {currentPlans.map((plan, index) => (
-          <PlanCard key={plan.id || `plan-${index}`} plan={plan} /> //fallback key
+          <PlanCard key={plan.id || `plan-${index}`} plan={plan} />
         ))}
       </div>
       <div className="fixed bottom-4 left-68 right-0 flex justify-center items-center">

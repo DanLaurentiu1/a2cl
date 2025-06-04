@@ -219,7 +219,7 @@ class LeetcodeTrainer:
         self.model.save(final_path)
         print(f"Training done! Final model saved to {final_path}.zip")
 
-    def evaluate(self, env_targets: list[str], num_episodes: int = 10, load_path: str = None):
+    def evaluate(self, env_targets: list[str], num_episodes: int = 3, load_path: str = None):
         if load_path is not None:
             self.model = self.load_model(env_targets, load_path)
         if self.model is None:
