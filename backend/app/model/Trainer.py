@@ -194,7 +194,10 @@ class LeetcodeTrainer:
 
     def load_model(self, env_targets: list[str], model_path: str):
         self.env = self.create_testing_env(topics=env_targets)
-        self.model = A2C.load(model_path, env=self.env, device="auto", verbose=1)
+        custom_objects = {
+        "lr_schedule": lambda _: 1e-3
+        }
+        self.model = A2C.load(model_path, env=self.env, device="auto", verbose=1, custom_objects=custom_objects)
         return self.model
 
     def train(self):
