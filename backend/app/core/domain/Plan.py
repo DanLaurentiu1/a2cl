@@ -10,12 +10,14 @@ class Plan:
         id: int,
         title: str,
         profile: Profile,
-        problems: List[Tuple[bool, Problem]] = []
+        problems: List[Tuple[bool, Problem]] = [],
+        given_topics: List[Topic] = [],
     ):
         self._id = id
         self._title = title
         self._profile = profile
         self._problems = problems
+        self._given_topics = given_topics
         self._topics = self._calculate_topics()
 
     @property
@@ -31,6 +33,16 @@ class Plan:
         if not value or not isinstance(value, str):
             raise ValueError("Title must be a non-empty string")
         self._title = value
+
+    @property
+    def given_topics(self) ->  List[Topic]:
+        return self._given_topics
+
+    @given_topics.setter
+    def given_topics(self, value: List[Topic]):
+        if not value or not isinstance(value, List[Topic]):
+            raise ValueError("Given topics must be a list of topics")
+        self.given_topics = value
 
     @property
     def profile(self) -> Profile:
@@ -89,23 +101,26 @@ class Plan:
             title=self._title,
             profile=self._profile.to_json(),
             problems=[(done, prob.to_json()) for done, prob in self._problems],
-            topics=[t.to_json() for t in self._topics] if self._topics else None
+            topics=[t.to_json() for t in self._topics] if self._topics else None,
+            given_topics=[topic.to_json() for topic in self._given_topics]
         )
 
     @classmethod
     def from_json(self, json_data: PlanJSON) -> 'Plan':
         try:
-            if not json_data.id or not json_data.title or not json_data.profile:
+            if not json_data.id or not json_data.title or not json_data.profile or not json_data.given_topics:
                 raise ValueError("Invalid Plan JSON - missing required fields")
             problems = [
                 (bool(done), Problem.from_json(prob))
                 for done, prob in json_data.problems
             ]
+            given_topics = [Topic.from_json(topic) for topic in json_data.given_topics]
             plan = self(
                 id=json_data.id,
                 title=json_data.title,
                 profile=Profile.from_json(json_data.profile),
-                problems=problems
+                problems=problems,
+                given_topics=given_topics
             )
             if json_data.topics:
                 plan._topics = {Topic.from_json(t) for t in json_data.topics}

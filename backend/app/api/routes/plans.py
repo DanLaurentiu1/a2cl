@@ -29,7 +29,7 @@ async def create_plan(
 ):
     try:
         plan = Plan.from_json(plan_data)
-        new_plan = repo.add_plan(plan)
+        new_plan = repo.create_plan_with_recommendations(plan)
         return new_plan.to_json()
     except ValueError as e:
         raise HTTPException(400, detail=str(e))

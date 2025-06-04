@@ -31,6 +31,7 @@ class PlanJSON(BaseModel):
     profile: ProfileJSON
     problems: List[Tuple[bool, ProblemJSON]]
     topics: Optional[List[TopicJSON]] = None
+    given_topics: List[TopicJSON]
 
 class UpdatePlanProblemsRequest(BaseModel):
     problems: List[Tuple[bool, ProblemJSON]]

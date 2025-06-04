@@ -80,7 +80,7 @@ export const ALL_TOPICS: readonly Topic[] = [
 export function getTopicByName(name: string): Topic {
   const result = ALL_TOPICS.find((topic) => topic.name === name);
   if (result === undefined) {
-    throw Error();
+    throw Error("This topic does not exist");
   }
   return result;
 }
