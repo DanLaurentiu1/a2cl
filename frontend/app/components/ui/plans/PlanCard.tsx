@@ -4,7 +4,7 @@ import TopicTags from "../topics/TopicTags";
 import { Plan } from "@/app/lib/domain/Plan";
 
 export default function PlanCard({ plan }: { plan: Plan }) {
-  const topics = Array.from(new Set(plan.topics)).slice(0, 10);
+  const topics = Array.from(new Set(plan.topics)).slice(0, 6);
   return (
     <Link href={`/plans/${plan.id}`} className="h-full">
       <div className="h-full flex flex-col bg-lightgrey p-6 rounded-lg">

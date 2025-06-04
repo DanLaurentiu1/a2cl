@@ -3,7 +3,7 @@ import PlansList from "./PlansList";
 
 export default function SidePannel() {
   return (
-    <div className="flex flex-col w-1/7 bg-lightgrey rounded-r-2xl p-2 h-screen">
+    <div className="flex flex-col w-1/6 bg-lightgrey rounded-r-2xl p-2 h-screen">
       <div className="flex text-justify items-center justify-between m-4">
         <h2 className="text-white text-2xl font-semibold">Plans</h2>
         <Link
