@@ -57,7 +57,7 @@ class LeetcodeRecommenderEnv(gym.Env):
                     reward += 5
                 else:
                     reward += 2
-            elif abs_difference <= 9:
+            elif abs_difference <= 10:
                 if current_score < score:
                     self.current_proficiencies[topic] += 5
                     reward += 1
