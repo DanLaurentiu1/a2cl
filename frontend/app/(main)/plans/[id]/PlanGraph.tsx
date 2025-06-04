@@ -19,9 +19,18 @@ export default function PlanGraph(plan: Plan | undefined) {
   const edges: Edge[] = [];
   let centerY = window.innerWidth / 2 - 800;
   const centerX = window.innerWidth / 2 - 300;
-  plan?.problems.forEach((problem) => {
+
+  const problemCountMap = new Map<string, number>();
+  const nodeIds: string[] = [];
+
+  plan?.problems.forEach((problem, _) => {
+    const problemId = problem[1].id.toString();
+    const count = problemCountMap.get(problemId) || 0;
+    problemCountMap.set(problemId, count + 1);
+    const uniqueNodeId = `${problemId}-${count}`;
+    nodeIds.push(uniqueNodeId);
     nodes.push({
-      id: problem[1].id.toString(),
+      id: uniqueNodeId,
       type: "problemNode",
       position: { x: centerX, y: centerY },
       data: {
@@ -29,20 +38,22 @@ export default function PlanGraph(plan: Plan | undefined) {
         problemId: problem[1].id,
         name: problem[1].name,
         acceptanceRate: problem[1].acceptanceRate,
-        difficulty: problem[1].difficulty,
+        difficulty: problem[1].difficulty
       },
     });
     centerY += 125;
   });
-  for (let i = 0; i < plan!.problems.length - 1; i++) {
-    const current = plan!.problems[i][1];
-    const next = plan!.problems[i + 1][1];
+
+  for (let i = 0; i < (plan?.problems.length || 0) - 1; i++) {
+    const sourceId = nodeIds[i];
+    const targetId = nodeIds[i + 1];
+
     edges.push({
-      id: `${current.id}-${next.id}`,
-      source: current.id.toString(),
-      target: next.id.toString(),
-      sourceHandle: `source-${current.id.toString()}`,
-      targetHandle: `target-${next.id.toString()}`,
+      id: `edge-${i}-${sourceId}-${targetId}`,
+      source: sourceId,
+      target: targetId,
+      sourceHandle: `source-${sourceId}`,
+      targetHandle: `target-${targetId}`,
       type: "problemEdge",
     });
   }
@@ -54,6 +65,6 @@ export default function PlanGraph(plan: Plan | undefined) {
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       fitView
-    ></ReactFlow>
+    />
   );
 }
