@@ -12,69 +12,130 @@ class TrainingMetricsCallback(BaseCallback):
         super().__init__(verbose)
         self.log_dir = log_dir
         os.makedirs(log_dir, exist_ok=True)
-        self.episode_file = self._create_log_file("episode_metrics.csv", ["Episode", "Reward", "MovingAvg", "Entropy"])
-        self.update_file = self._create_log_file("update_metrics.csv",["Timestep", "ActorLoss", "CriticLoss", "ActorGradNorm", "CriticGradNorm"])
+        self.episode_file = self._create_log_file(
+            "episode_metrics.csv",
+            ["Episode", "Reward", "RewardMovingAvg", "Entropy", "EntropyMovingAvg"]
+        )
+        self.update_file = self._create_log_file(
+            "update_metrics.csv",
+            [
+                "Timestep",
+                "ActorLoss", "ActorLossMovingAvg",
+                "CriticLoss", "CriticLossMovingAvg",
+                "ActorGradNorm", "ActorGradNormMovingAvg",
+                "CriticGradNorm", "CriticGradNormMovingAvg"
+            ]
+        )
+
         self.episode_rewards = []
+        self.episode_entropies = []
         self.episode_reward = 0
+        self.episode_actions = []
         self.moving_avg_window = 100
         self.moving_avg_rewards = []
-        self.episode_actions = []
+        self.moving_avg_entropies = []
+
+        self.actor_losses = []
+        self.critic_losses = []
+        self.actor_grad_norms = []
+        self.critic_grad_norms = []
+        self.moving_avg_actor_losses = []
+        self.moving_avg_critic_losses = []
+        self.moving_avg_actor_grad_norms = []
+        self.moving_avg_critic_grad_norms = []
 
     def _create_log_file(self, filename, headers):
         file_path = os.path.join(self.log_dir, filename)
-        file = open(file_path, 'w', newline='')
+        file = open(file_path, "w", newline="")
         writer = csv.writer(file)
         writer.writerow(headers)
         return {"file": file, "writer": writer}
 
     def _on_step(self) -> bool:
-        rewards = self.locals.get('rewards', [0])
-        dones = self.locals.get('dones', [False])
-        actions = self.locals.get('actions', [None])
+        rewards = self.locals.get("rewards", [0])
+        dones = self.locals.get("dones", [False])
+        actions = self.locals.get("actions", [None])
         self.episode_reward += rewards[0]
         self.episode_actions.append(actions[0])
+
         if dones[0]:
             self.episode_rewards.append(self.episode_reward)
             start_idx = max(0, len(self.episode_rewards) - self.moving_avg_window)
-            moving_avg = np.mean(self.episode_rewards[start_idx:])
-            self.moving_avg_rewards.append(moving_avg)
+            reward_moving_avg = np.mean(self.episode_rewards[start_idx:])
+            self.moving_avg_rewards.append(reward_moving_avg)
+
             action_counts = defaultdict(int)
             for a in self.episode_actions:
                 action_counts[a] += 1
             entropy = 0.0
-            total = len(self.episode_actions)
+            total_actions = len(self.episode_actions)
             for count in action_counts.values():
-                p = count / total
+                p = count / total_actions
                 entropy -= p * np.log(p + 1e-8)
+            entropy = float(entropy)
+
+            self.episode_entropies.append(entropy)
+            start_e_idx = max(0, len(self.episode_entropies) - self.moving_avg_window)
+            entropy_moving_avg = np.mean(self.episode_entropies[start_e_idx:])
+            self.moving_avg_entropies.append(entropy_moving_avg)
+
             episode_num = len(self.episode_rewards)
             self.episode_file["writer"].writerow([
                 episode_num,
                 self.episode_reward,
-                np.round(moving_avg, 3),
-                np.round(entropy, 3)
+                np.round(reward_moving_avg, 3),
+                np.round(entropy, 3),
+                np.round(entropy_moving_avg, 3),
             ])
             self.episode_file["file"].flush()
             self.episode_reward = 0
             self.episode_actions = []
-        if self.model and self.model.num_timesteps % 40 == 0:
+
+        if self.model and self.model.num_timesteps % 500 == 0:
             logs = self.model.logger.name_to_value
             actor_loss = logs.get("train/policy_loss", float("nan"))
             critic_loss = logs.get("train/value_loss", float("nan"))
-            actor_norm, critic_norm = 0, 0
+
+            actor_norm_sq = 0.0
+            critic_norm_sq = 0.0
             for name, param in self.model.policy.named_parameters():
                 if param.grad is not None:
                     if "policy" in name:
-                        actor_norm += param.grad.data.norm(2).item() ** 2
+                        actor_norm_sq += float(param.grad.data.norm(2).item()) ** 2
                     elif "value" in name:
-                        critic_norm += param.grad.data.norm(2).item() ** 2
-            actor_norm = np.sqrt(actor_norm)
-            critic_norm = np.sqrt(critic_norm)
+                        critic_norm_sq += float(param.grad.data.norm(2).item()) ** 2
+
+            actor_norm = np.sqrt(actor_norm_sq)
+            critic_norm = np.sqrt(critic_norm_sq)
+
+            self.actor_losses.append(actor_loss)
+            self.critic_losses.append(critic_loss)
+            self.actor_grad_norms.append(actor_norm)
+            self.critic_grad_norms.append(critic_norm)
+
+            u_idx = len(self.actor_losses)
+            start_u_idx = max(0, u_idx - self.moving_avg_window)
+
+            actor_loss_ma = np.mean(self.actor_losses[start_u_idx:])
+            critic_loss_ma = np.mean(self.critic_losses[start_u_idx:])
+            actor_norm_ma = np.mean(self.actor_grad_norms[start_u_idx:])
+            critic_norm_ma = np.mean(self.critic_grad_norms[start_u_idx:])
+
+            self.moving_avg_actor_losses.append(actor_loss_ma)
+            self.moving_avg_critic_losses.append(critic_loss_ma)
+            self.moving_avg_actor_grad_norms.append(actor_norm_ma)
+            self.moving_avg_critic_grad_norms.append(critic_norm_ma)
+
             self.update_file["writer"].writerow([
                 self.model.num_timesteps,
                 np.round(actor_loss, 3),
+                np.round(actor_loss_ma, 3),
                 np.round(critic_loss, 3),
+                np.round(critic_loss_ma, 3),
                 np.round(actor_norm, 3),
-                np.round(critic_norm, 3)
+                np.round(actor_norm_ma, 3),
+                np.round(critic_norm, 3),
+                np.round(critic_norm_ma, 3),
             ])
             self.update_file["file"].flush()
         return True
