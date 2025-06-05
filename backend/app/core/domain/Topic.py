@@ -1,5 +1,6 @@
 from app.api.schemas.schemas import TopicJSON, TopicTypes
 
+
 class Topic:
     def __init__(self, name: str, topic_type: TopicTypes):
         self._name = name
@@ -20,7 +21,7 @@ class Topic:
         )
 
     @classmethod
-    def from_json(self, json: TopicJSON) -> 'Topic':
+    def from_json(self, json: TopicJSON) -> "Topic":
         if not json.name or not json.type:
             raise ValueError("Invalid Topic JSON")
         return self(json.name, TopicTypes(json.type))

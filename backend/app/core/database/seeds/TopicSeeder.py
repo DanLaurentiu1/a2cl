@@ -2,11 +2,11 @@ from sqlalchemy.orm import Session
 from app.core.database.models.DB_Topic import DB_Topic
 from app.api.schemas.schemas import TopicTypes
 
+
 class TopicSeeder:
     @staticmethod
     def seed_data() -> list[dict]:
         return [
-            # Data Structures
             {"name": "Binary Tree", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "Matrix", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "Array", "type": TopicTypes.DATA_STRUCTURES},
@@ -28,8 +28,6 @@ class TopicSeeder:
             {"name": "Stack", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "Queue", "type": TopicTypes.DATA_STRUCTURES},
             {"name": "Suffix Array", "type": TopicTypes.DATA_STRUCTURES},
-            
-            # Algorithms
             {"name": "Sliding Window", "type": TopicTypes.ALGORITHMS},
             {"name": "Two Pointers", "type": TopicTypes.ALGORITHMS},
             {"name": "Divide and Conquer", "type": TopicTypes.ALGORITHMS},
@@ -45,8 +43,6 @@ class TopicSeeder:
             {"name": "Sorting", "type": TopicTypes.ALGORITHMS},
             {"name": "Depth-First Search", "type": TopicTypes.ALGORITHMS},
             {"name": "Merge Sort", "type": TopicTypes.ALGORITHMS},
-            
-            # Concepts
             {"name": "String Matching", "type": TopicTypes.CONCEPTS},
             {"name": "Reservoir Sampling", "type": TopicTypes.CONCEPTS},
             {"name": "Bit Manipulation", "type": TopicTypes.CONCEPTS},
@@ -75,26 +71,21 @@ class TopicSeeder:
             {"name": "Recursion", "type": TopicTypes.CONCEPTS},
             {"name": "Memoization", "type": TopicTypes.CONCEPTS},
             {"name": "Backtracking", "type": TopicTypes.CONCEPTS},
-            
-            # Miscellaneous
             {"name": "Design", "type": TopicTypes.MISCELLANEOUS},
             {"name": "Brainteaser", "type": TopicTypes.MISCELLANEOUS},
             {"name": "Simulation", "type": TopicTypes.MISCELLANEOUS},
             {"name": "Concurrency", "type": TopicTypes.MISCELLANEOUS},
             {"name": "Game Theory", "type": TopicTypes.MISCELLANEOUS},
             {"name": "Shell", "type": TopicTypes.MISCELLANEOUS},
-            {"name": "Interactive", "type": TopicTypes.MISCELLANEOUS}
+            {"name": "Interactive", "type": TopicTypes.MISCELLANEOUS},
         ]
 
     @staticmethod
     def run(db: Session):
         existing_topics = {t.name for t in db.query(DB_Topic).all()}
-        
+
         for topic_data in TopicSeeder.seed_data():
             if topic_data["name"] not in existing_topics:
-                db.add(DB_Topic(
-                    name=topic_data["name"],
-                    type=topic_data["type"]
-                ))
-        
+                db.add(DB_Topic(name=topic_data["name"], type=topic_data["type"]))
+
         db.commit()

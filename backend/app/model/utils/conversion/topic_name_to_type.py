@@ -72,5 +72,5 @@ topic_type_dict = {
     "Concurrency": TopicTypes.MISCELLANEOUS,
     "Game Theory": TopicTypes.MISCELLANEOUS,
     "Shell": TopicTypes.MISCELLANEOUS,
-    "Interactive": TopicTypes.MISCELLANEOUS
+    "Interactive": TopicTypes.MISCELLANEOUS,
 }

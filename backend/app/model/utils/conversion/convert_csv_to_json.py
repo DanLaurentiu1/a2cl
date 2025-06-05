@@ -5,6 +5,7 @@ from app.model.utils.conversion.convert_difficulty import convert_difficulty
 from app.model.utils.conversion.topic_name_to_type import topic_type_dict
 from app.model.utils.conversion.clean_acceptance_rate import clean_acceptance_rate
 
+
 def convert_csv_to_json(path: str):
     df = pd.read_csv(path)
 
@@ -18,14 +19,14 @@ def convert_csv_to_json(path: str):
             topics_list = []
 
         for topic in topics_list:
-            topics.append({"name" : str(topic), "type" : topic_type_dict[str(topic)]})
-            
+            topics.append({"name": str(topic), "type": topic_type_dict[str(topic)]})
+
         question_obj = {
-            "id": row['Question_No'],
-            "name": row['Name'],
-            "difficulty": convert_difficulty(row['Difficulty']),
-            "acceptance_rate": clean_acceptance_rate(row['Acceptance_rate']),
-            "topics": topics
+            "id": row["Question_No"],
+            "name": row["Name"],
+            "difficulty": convert_difficulty(row["Difficulty"]),
+            "acceptance_rate": clean_acceptance_rate(row["Acceptance_rate"]),
+            "topics": topics,
         }
         output.append(question_obj)
     return output

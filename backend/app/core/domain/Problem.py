@@ -3,6 +3,7 @@ from typing import List
 from app.api.schemas.schemas import DifficultyLevel, ProblemJSON
 from app.core.domain import Topic
 
+
 @dataclass
 class Problem:
     def __init__(
@@ -11,7 +12,7 @@ class Problem:
         name: str,
         topics: List[Topic],
         difficulty: DifficultyLevel,
-        acceptance_rate: float
+        acceptance_rate: float,
     ):
         self._id = id
         self._name = name
@@ -45,17 +46,18 @@ class Problem:
             name=self._name,
             topics=[topic.to_json() for topic in self._topics],
             difficulty=self._difficulty,
-            acceptanceRate=self._acceptanceRate
+            acceptanceRate=self._acceptanceRate,
         )
 
     @classmethod
-    def from_json(self, json: ProblemJSON) -> 'Problem':
+    def from_json(self, json: ProblemJSON) -> "Problem":
         if not json.id or not json.name:
             raise ValueError("Invalid Problem JSON")
+
         return self(
             id=json.id,
             name=json.name,
             topics=[Topic.from_json(topic) for topic in json.topics],
             difficulty=json.difficulty,
-            acceptance_rate=json.acceptanceRate
-        ) 
+            acceptance_rate=json.acceptanceRate,
+        )
