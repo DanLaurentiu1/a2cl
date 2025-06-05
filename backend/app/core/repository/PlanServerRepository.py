@@ -42,33 +42,19 @@ class PlanServerRepository:
     def add_problems_to_plan(self, plan_data: Plan) -> Plan:
         topic_names = [topic.name for topic in plan_data.given_topics]
 
-        if "Array" in topic_names:
+        if len(topic_names) == 1:
             model_path = (
                 Path(__file__).parent.parent.parent
                 / "model"
                 / "checkpoints"
-                / "final_model_200000.zip"
-            )
-        elif "String" in topic_names:
-            model_path = (
-                Path(__file__).parent.parent.parent
-                / "model"
-                / "checkpoints"
-                / "final_model_200000.zip"
-            )
-        elif "Math" in topic_names:
-            model_path = (
-                Path(__file__).parent.parent.parent
-                / "model"
-                / "checkpoints"
-                / "final_model_200000.zip"
+                / f"final_model_{topic_names}.zip"
             )
         else:
             model_path = (
                 Path(__file__).parent.parent.parent
                 / "model"
                 / "checkpoints"
-                / "final_model_200000.zip"
+                / "final_model.zip"
             )
 
         recommended_problem_ids = self._trainer.evaluate(
