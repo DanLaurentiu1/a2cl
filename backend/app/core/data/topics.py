@@ -26,7 +26,6 @@ ALL_TOPICS: List[Topic] = [
     Topic("Stack", TopicTypes.DATA_STRUCTURES),
     Topic("Queue", TopicTypes.DATA_STRUCTURES),
     Topic("Suffix Array", TopicTypes.DATA_STRUCTURES),
-    
     # Algorithms
     Topic("Sliding Window", TopicTypes.ALGORITHMS),
     Topic("Two Pointers", TopicTypes.ALGORITHMS),
@@ -43,7 +42,6 @@ ALL_TOPICS: List[Topic] = [
     Topic("Sorting", TopicTypes.ALGORITHMS),
     Topic("Depth-First Search", TopicTypes.ALGORITHMS),
     Topic("Merge Sort", TopicTypes.ALGORITHMS),
-    
     # Concepts
     Topic("String Matching", TopicTypes.CONCEPTS),
     Topic("Reservoir Sampling", TopicTypes.CONCEPTS),
@@ -73,7 +71,6 @@ ALL_TOPICS: List[Topic] = [
     Topic("Recursion", TopicTypes.CONCEPTS),
     Topic("Memoization", TopicTypes.CONCEPTS),
     Topic("Backtracking", TopicTypes.CONCEPTS),
-    
     # Miscellaneous
     Topic("Design", TopicTypes.MISCELLANEOUS),
     Topic("Brainteaser", TopicTypes.MISCELLANEOUS),
@@ -81,8 +78,9 @@ ALL_TOPICS: List[Topic] = [
     Topic("Concurrency", TopicTypes.MISCELLANEOUS),
     Topic("Game Theory", TopicTypes.MISCELLANEOUS),
     Topic("Shell", TopicTypes.MISCELLANEOUS),
-    Topic("Interactive", TopicTypes.MISCELLANEOUS)
+    Topic("Interactive", TopicTypes.MISCELLANEOUS),
 ]
+
 
 def get_topic_by_name(name: str) -> Topic:
     topic = next((t for t in ALL_TOPICS if t.name == name), None)

@@ -6,17 +6,19 @@ from app.core.database.models.DB_Topic import DB_Topic
 from app.core.domain import Plan
 from app.core.database.base import Base
 
+
 class DB_Plan(Base):
-    __tablename__ = 'plans'
-   
+    __tablename__ = "plans"
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(200), nullable=False)
-    profile_id = Column(Integer, ForeignKey('profiles.id'), nullable=False)
+    profile_id = Column(Integer, ForeignKey("profiles.id"), nullable=False)
     problems = Column(JSON)
     given_topics = Column(JSON)
 
-    def to_entity(self, session: Session) -> 'Plan':
+    def to_entity(self, session: Session) -> "Plan":
         db_profile: DB_Profile = session.query(DB_Profile).get(self.profile_id)
+
         if db_profile:
             profile = db_profile.to_entity()
 
@@ -27,6 +29,7 @@ class DB_Plan(Base):
             db_problem: DB_Problem = session.query(DB_Problem).get(problem_id)
             if db_problem:
                 problems_list.append((completed, db_problem.to_entity()))
+
         for topic_name in self.given_topics:
             db_topic = session.query(DB_Topic).filter_by(name=topic_name).first()
             if db_topic:
@@ -37,27 +40,31 @@ class DB_Plan(Base):
             title=self.title,
             profile=profile,
             problems=problems_list,
-            given_topics=given_topics_list
+            given_topics=given_topics_list,
         )
-    
+
     @classmethod
-    def from_entity(cls, plan: 'Plan', session: Session, adding: bool = False) -> 'DB_Plan':
+    def from_entity(
+        cls, plan: "Plan", session: Session, adding: bool = False
+    ) -> "DB_Plan":
         db_profile = session.query(DB_Profile).filter_by(name=plan.profile.name).first()
+
         if not db_profile:
             db_profile = DB_Profile.from_entity(plan.profile)
             session.add(db_profile)
             session.flush()
+
         problems_data = [
-            [bool(completed), int(problem.id)]
-            for completed, problem in plan.problems
+            [bool(completed), int(problem.id)] for completed, problem in plan.problems
         ]
         given_topics_data = [topic.name for topic in plan.given_topics]
+
         if adding:
             return cls(
                 title=plan.title,
                 profile_id=db_profile.id,
                 problems=problems_data,
-                given_topics=given_topics_data
+                given_topics=given_topics_data,
             )
         else:
             return cls(
@@ -65,7 +72,7 @@ class DB_Plan(Base):
                 title=plan.title,
                 profile_id=db_profile.id,
                 problems=problems_data,
-                given_topics=given_topics_data
+                given_topics=given_topics_data,
             )
 
     def __repr__(self):

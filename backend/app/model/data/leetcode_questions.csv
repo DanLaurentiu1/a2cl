@@ -1522,7 +1522,7 @@ Question_No,Name,Topic_tags,Acceptance_rate,Difficulty
 1521,Find a Value of a Mysterious Function Closest to Target,"['Array', 'Binary Search', 'Bit Manipulation', 'Segment Tree']",45.50%,Hard
 1522,Diameter of N-Ary Tree,"['Tree', 'Depth-First Search']",74.50%,Medium
 1523,Count Odd Numbers in an Interval Range,['Math'],50.00%,Easy
-1524,Number of Sub-arrays With Odd Sum,"['Array', 'Math', 'Dynamic Programming', 'Prefix Sum]",43.80%,Medium
+1524,Number of Sub-arrays With Odd Sum,"['Array', 'Math', 'Dynamic Programming', 'Prefix Sum']",43.80%,Medium
 1525,Number of Good Ways to Split a String,"['Hash Table', 'String', 'Dynamic Programming', 'Bit Manipulation']",68.30%,Medium
 1526,Minimum Number of Increments on Subarrays to Form a Target Array,"['Array', 'Dynamic Programming', 'Stack', 'Greedy', 'Monotonic Stack']",71.80%,Hard
 1527,Patients With a Condition,['Database'],40.20%,Easy
@@ -2643,7 +2643,7 @@ Question_No,Name,Topic_tags,Acceptance_rate,Difficulty
 2642,Design Graph With Shortest Path Calculator,"['Graph', 'Design', 'Heap (Priority Queue)', 'Shortest Path']",70.60%,Hard
 2643,Row With Maximum Ones,"['Array', 'Matrix']",75.10%,Easy
 2644,Find the Maximum Divisibility Score,['Array'],49.80%,Easy
-2645,Minimum Additions to Make Valid String,"['String', 'Dynamic Programming', 'Stack', 'Greedy]",50.60%,Medium
+2645,Minimum Additions to Make Valid String,"['String', 'Dynamic Programming', 'Stack', 'Greedy']",50.60%,Medium
 2646,Minimize the Total Price of the Trips,"['Array', 'Dynamic Programming', 'Tree', 'Depth-First Search', 'Graph']",46.30%,Hard
 2647,Color the Triangle Red,"['Array', 'Math']",66.30%,Hard
 2648,Generate Fibonacci Sequence,[],83.50%,Easy
@@ -3223,7 +3223,7 @@ Question_No,Name,Topic_tags,Acceptance_rate,Difficulty
 3222,Find the Winning Player in Coin Game,"['Math', 'Simulation', 'Game Theory']",51.90%,Easy
 3223,Minimum Length of String After Operations,"['Hash Table', 'String', 'Counting']",55.50%,Medium
 3224,Minimum Array Changes to Make Differences Equal,"['Array', 'Hash Table', 'Prefix Sum']",23.20%,Medium
-3225,Maximum Score From Grid Operations,"['Array', 'Dynamic Programming', 'Matrix', 'Prefix Sum]",28.90%,Hard
+3225,Maximum Score From Grid Operations,"['Array', 'Dynamic Programming', 'Matrix', 'Prefix Sum']",28.90%,Hard
 3226,Number of Bit Changes to Make Two Integers Equal,['Bit Manipulation'],64.90%,Easy
 3227,Vowels Game in a String,"['Math', 'String', 'Brainteaser', 'Game Theory']",63.10%,Medium
 3228,Maximum Number of Operations to Move Ones to the End,"['String', 'Greedy', 'Counting']",54.20%,Medium
@@ -3300,7 +3300,7 @@ Question_No,Name,Topic_tags,Acceptance_rate,Difficulty
 3299,Sum of Consecutive Subsequences,"['Array', 'Hash Table']",49.10%,Hard
 3300,Minimum Element After Replacement With Digit Sum,"['Array', 'Math']",83.60%,Easy
 3301,Maximize the Total Height of Unique Towers,"['Array', 'Greedy', 'Sorting']",35.70%,Medium
-3302,Find the Lexicographically Smallest Valid Sequence,"['Two Pointers', 'String', 'Dynamic Programming', 'Greedy]",18.90%,Medium
+3302,Find the Lexicographically Smallest Valid Sequence,"['Two Pointers', 'String', 'Dynamic Programming', 'Greedy']",18.90%,Medium
 3303,Find the Occurrence of First Almost Equal Substring,"['String', 'String Matching']",11.60%,Hard
 3304,Find the K-th Character in String Game I,"['Math', 'Bit Manipulation', 'Recursion', 'Simulation']",71.60%,Easy
 3305,Count of Substrings Containing Every Vowel and K Consonants I,"['Hash Table', 'String', 'Sliding Window']",40.40%,Medium

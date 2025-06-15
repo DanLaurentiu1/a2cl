@@ -5,7 +5,6 @@ from app.core.data.topics import ALL_TOPICS
 from app.core.domain import Topic
 
 
-
 class Profile:
     def __init__(self, name: str):
         self._name = name
@@ -22,11 +21,13 @@ class Profile:
     def to_json(self) -> ProfileJSON:
         return ProfileJSON(
             name=self._name,
-            proficiencies=[(topic.to_json(), value) for topic, value in self._proficiencies.items()]
+            proficiencies=[
+                (topic.to_json(), value) for topic, value in self._proficiencies.items()
+            ],
         )
 
     @classmethod
-    def from_json(self, json: ProfileJSON) -> 'Profile':
+    def from_json(self, json: ProfileJSON) -> "Profile":
         if not json.name:
             raise ValueError("Invalid Profile JSON")
 
@@ -39,6 +40,6 @@ class Profile:
             }
 
         return profile
-    
+
     def _create_default_proficiencies(self) -> Dict[Topic, int]:
         return {topic: 0 for topic in ALL_TOPICS}

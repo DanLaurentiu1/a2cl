@@ -18,7 +18,7 @@ export default function PlansList() {
       <ul className="p-1">
         {plans.map((plan, index) => (
           <li
-            key={plan.id || `plan-${index}`} // fallback key!!
+            key={plan.id || `plan-${index}`}
             className="flex justify-between items-center mb-2 text-white bg-lightgrey backdrop-blur-sm p-2 rounded-2xl hover:bg-white/20 transition-all duration-10 cursor-pointer"
           >
             <Link href={`/plans/${plan.id}`}>

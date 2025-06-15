@@ -2,6 +2,7 @@ import re
 
 from app.core.domain import Profile
 
+
 class ProfileValidator:
     def validate_profile(self, profile: Profile) -> None:
         self.validate_profile_name(profile)
@@ -15,11 +16,12 @@ class ProfileValidator:
     def validate_profile_name(self, profile: Profile) -> None:
         if not profile.name:
             raise ValueError("Profile name cannot be empty")
-        
-        if not re.match(r'^(?! )[A-Za-z0-9]+$', profile.name):
+
+        if not re.match(r"^(?! )[A-Za-z0-9]+$", profile.name):
             raise ValueError("Profile name contains invalid characters")
-        
+
         if len(profile.name) > 30:
             raise ValueError("Profile name must be <= 30 characters")
+
 
 profile_validator = ProfileValidator()

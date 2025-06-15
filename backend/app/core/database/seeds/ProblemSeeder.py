@@ -6,6 +6,7 @@ from typing import List, Dict
 
 from app.model.utils.conversion.convert_csv_to_json import convert_csv_to_json
 
+
 class ProblemSeeder:
     @staticmethod
     def seed_data() -> List[Dict]:
@@ -17,6 +18,7 @@ class ProblemSeeder:
     @staticmethod
     def run(db: Session):
         existing_ids = {p.id for p in db.query(DB_Problem).all()}
+
         for problem_data in ProblemSeeder.seed_data():
             if problem_data["id"] not in existing_ids:
                 db_problem = DB_Problem(
@@ -24,8 +26,8 @@ class ProblemSeeder:
                     name=problem_data["name"],
                     difficulty=problem_data["difficulty"],
                     acceptance_rate=problem_data["acceptance_rate"],
-                    topics=problem_data["topics"]
+                    topics=problem_data["topics"],
                 )
                 db.add(db_problem)
-        
+
         db.commit()

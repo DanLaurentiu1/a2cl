@@ -3,9 +3,9 @@ from typing import List
 from app.core.domain import Profile
 
 ALL_PROFILES: List[Profile] = [
-  Profile("Profile 1"),
-  Profile("Profile 2"),
-  Profile("Profile 3"),
+    Profile("Profile 1"),
+    Profile("Profile 2"),
+    Profile("Profile 3"),
 ]
 
 

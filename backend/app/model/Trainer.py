@@ -7,6 +7,7 @@ from stable_baselines3 import A2C
 from stable_baselines3.common.callbacks import BaseCallback, CallbackList
 from app.model.LeetcodeRecommenderEnv import LeetcodeRecommenderEnv
 
+
 class TrainingMetricsCallback(BaseCallback):
     def __init__(self, log_dir="logs", verbose=0):
         super().__init__(verbose)
@@ -14,17 +15,21 @@ class TrainingMetricsCallback(BaseCallback):
         os.makedirs(log_dir, exist_ok=True)
         self.episode_file = self._create_log_file(
             "episode_metrics.csv",
-            ["Episode", "Reward", "RewardMovingAvg", "Entropy", "EntropyMovingAvg"]
+            ["Episode", "Reward", "RewardMovingAvg", "Entropy", "EntropyMovingAvg"],
         )
         self.update_file = self._create_log_file(
             "update_metrics.csv",
             [
                 "Timestep",
-                "ActorLoss", "ActorLossMovingAvg",
-                "CriticLoss", "CriticLossMovingAvg",
-                "ActorGradNorm", "ActorGradNormMovingAvg",
-                "CriticGradNorm", "CriticGradNormMovingAvg"
-            ]
+                "ActorLoss",
+                "ActorLossMovingAvg",
+                "CriticLoss",
+                "CriticLossMovingAvg",
+                "ActorGradNorm",
+                "ActorGradNormMovingAvg",
+                "CriticGradNorm",
+                "CriticGradNormMovingAvg",
+            ],
         )
 
         self.episode_rewards = []
@@ -80,13 +85,15 @@ class TrainingMetricsCallback(BaseCallback):
             self.moving_avg_entropies.append(entropy_moving_avg)
 
             episode_num = len(self.episode_rewards)
-            self.episode_file["writer"].writerow([
-                episode_num,
-                self.episode_reward,
-                np.round(reward_moving_avg, 3),
-                np.round(entropy, 3),
-                np.round(entropy_moving_avg, 3),
-            ])
+            self.episode_file["writer"].writerow(
+                [
+                    episode_num,
+                    self.episode_reward,
+                    np.round(reward_moving_avg, 3),
+                    np.round(entropy, 3),
+                    np.round(entropy_moving_avg, 3),
+                ]
+            )
             self.episode_file["file"].flush()
             self.episode_reward = 0
             self.episode_actions = []
@@ -126,17 +133,19 @@ class TrainingMetricsCallback(BaseCallback):
             self.moving_avg_actor_grad_norms.append(actor_norm_ma)
             self.moving_avg_critic_grad_norms.append(critic_norm_ma)
 
-            self.update_file["writer"].writerow([
-                self.model.num_timesteps,
-                np.round(actor_loss, 3),
-                np.round(actor_loss_ma, 3),
-                np.round(critic_loss, 3),
-                np.round(critic_loss_ma, 3),
-                np.round(actor_norm, 3),
-                np.round(actor_norm_ma, 3),
-                np.round(critic_norm, 3),
-                np.round(critic_norm_ma, 3),
-            ])
+            self.update_file["writer"].writerow(
+                [
+                    self.model.num_timesteps,
+                    np.round(actor_loss, 3),
+                    np.round(actor_loss_ma, 3),
+                    np.round(critic_loss, 3),
+                    np.round(critic_loss_ma, 3),
+                    np.round(actor_norm, 3),
+                    np.round(actor_norm_ma, 3),
+                    np.round(critic_norm, 3),
+                    np.round(critic_norm_ma, 3),
+                ]
+            )
             self.update_file["file"].flush()
         return True
 
@@ -159,13 +168,20 @@ class EpisodeCheckpointCallback(BaseCallback):
                 if done:
                     self.episode_count += 1
                     if self.episode_count % self.save_freq_episodes == 0:
-                        path = os.path.join(self.save_path, f"checkpoint_{self.episode_count}")
+                        path = os.path.join(
+                            self.save_path, f"checkpoint_{self.episode_count}"
+                        )
                         self.model.save(path)
         return True
 
 
 class LeetcodeTrainer:
-    def __init__(self, total_timesteps=200_000, save_freq_episodes=10, checkpoint_dir="./checkpoints"):
+    def __init__(
+        self,
+        total_timesteps=200_000,
+        save_freq_episodes=10,
+        checkpoint_dir="./checkpoints",
+    ):
         self.total_timesteps = total_timesteps
         self.save_freq_episodes = save_freq_episodes
         self.checkpoint_dir = checkpoint_dir
@@ -189,37 +205,39 @@ class LeetcodeTrainer:
             verbose=1,
             device="auto",
             ent_coef=0.01,
-            learning_rate=1e-3
+            learning_rate=1e-3,
         )
 
     def load_model(self, env_targets: list[str], model_path: str):
         self.env = self.create_testing_env(topics=env_targets)
-        custom_objects = {
-        "lr_schedule": lambda _: 1e-3
-        }
-        self.model = A2C.load(model_path, env=self.env, device="auto", verbose=1, custom_objects=custom_objects)
+        custom_objects = {"lr_schedule": lambda _: 1e-3}
+        self.model = A2C.load(
+            model_path,
+            env=self.env,
+            device="auto",
+            verbose=1,
+            custom_objects=custom_objects,
+        )
         return self.model
 
     def train(self):
         self.env = self.create_training_env()
         self.model = self.create_model(self.env)
         metrics_callback = TrainingMetricsCallback()
-        checkpoint_callback = EpisodeCheckpointCallback(save_freq_episodes=self.save_freq_episodes, save_path=self.checkpoint_dir)
+        checkpoint_callback = EpisodeCheckpointCallback(
+            save_freq_episodes=self.save_freq_episodes, save_path=self.checkpoint_dir
+        )
 
         callbacks = CallbackList([metrics_callback, checkpoint_callback])
-        print(f"Starting training for {self.total_timesteps} timesteps")
-        self.model.learn(
-            total_timesteps=self.total_timesteps,
-            callback=callbacks
-        )
+        self.model.learn(total_timesteps=self.total_timesteps, callback=callbacks)
         final_path = os.path.join(
-            self.checkpoint_dir,
-            f"final_model_{self.total_timesteps}"
+            self.checkpoint_dir, f"final_model_{self.total_timesteps}"
         )
         self.model.save(final_path)
-        print(f"Training done! Final model saved to {final_path}.zip")
 
-    def evaluate(self, env_targets: list[str], num_episodes: int = 10, load_path: str = None):
+    def evaluate(
+        self, env_targets: list[str], num_episodes: int = 3, load_path: str = None
+    ):
         if load_path is not None:
             self.model = self.load_model(env_targets, load_path)
         if self.model is None:
@@ -228,7 +246,6 @@ class LeetcodeTrainer:
         self.env = self.create_testing_env(topics=env_targets)
         recommended_problems_final: list[int] = []
         reward_final = -1e4
-        print(f"Evaluating {num_episodes} episodes on targets={env_targets}")
         for episode in range(num_episodes):
             obs, _ = self.env.reset()
             done, truncated = False, False
@@ -241,11 +258,8 @@ class LeetcodeTrainer:
                 obs, reward, done, truncated, _ = self.env.step(action)
                 episode_reward += reward
                 step_count += 1
-                
+
             if episode_reward >= reward_final:
                 reward_final = episode_reward
                 recommended_problems_final = recommended_problems.copy()
-            print(f" Episode {episode + 1}: Steps={step_count}, Reward={episode_reward:.2f}")
-        print(f"Chosen reward: {reward_final}")
-        print(recommended_problems_final)
         return recommended_problems_final
