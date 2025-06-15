@@ -41,26 +41,15 @@ class PlanServerRepository:
 
     def add_problems_to_plan(self, plan_data: Plan) -> Plan:
         topic_names = [topic.name for topic in plan_data.given_topics]
-
-        if len(topic_names) == 1:
-            model_path = (
-                Path(__file__).parent.parent.parent
-                / "model"
-                / "checkpoints"
-                / f"final_model_{topic_names}.zip"
-            )
-        else:
-            model_path = (
-                Path(__file__).parent.parent.parent
-                / "model"
-                / "checkpoints"
-                / "final_model.zip"
-            )
-
+        model_path = (
+            Path(__file__).parent.parent.parent
+            / "model"
+            / "checkpoints"
+            / f"final_model_array.zip"
+        )
         recommended_problem_ids = self._trainer.evaluate(
             env_targets=topic_names, load_path=model_path
         )
-
         problems = []
         for problem_id in recommended_problem_ids:
             db_problem: DB_Problem = self._db.query(DB_Problem).get(problem_id)
