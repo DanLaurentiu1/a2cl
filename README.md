@@ -27,7 +27,7 @@ The project uses [Next.js](https://nextjs.org/) with [TailwindCSS](https://tailw
  </div>
  <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow_diagram_rounded.png" width="490" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow_diagram.png" width="490" height="400" />
   </picture>
   </div>
 
