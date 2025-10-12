@@ -1,6 +1,5 @@
 <h1 align="center">A2CL</h1>
 <p align="center"><strong>Full-stack application that helps you organize and optimize your LeetCode problem-solving plans.</strong></p>
-</div>
 
 <div align="center">
   <picture>
@@ -10,7 +9,25 @@
 
 
 ## Overview
-asdasd
+### What?
+This application provides an interface for creating and managing learning plans, specifically for the LeetCode platform. Additionally, we use multiple reinforcement learning based algorithms to automatically generate practice problem-sets. The user specifies which topics they want to practice, and a problem-set is curated for them.
+
+### Why?
+On their own, the problem-sets are perhaps slightly inferior to already existing, human-made plans. Our approach shines when the topics specified either vary wildly in difficulty (Advanced Dynamic Programming vs Two Pointers) or are uncommonly mixed together (Graph vs Combinatorics). Through experience, our algorithm automatically visits prerequisite sub-topics and techniques, creating plausible plans for a mix of multiple topics.
+
+### How?
+The project uses [Next.js](https://nextjs.org/) with [TailwindCSS](https://tailwindcss.com/) for the front-end and [FastAPI](https://fastapi.tiangolo.com/) for the back-end. User plans are stored in a [PostgreSQL](https://www.postgresql.org/) database using the [SQLAlchemy ORM](https://www.sqlalchemy.org/). Model's skeleton is built with [Gymnasium](https://gymnasium.farama.org/index.html) and monitored using [Stable-Baselines3](https://stable-baselines3.readthedocs.io/en/master/) callbacks. Our approaches are benchmarked against existing Stable-Baselines3 models. The entire project is deployed in production: the front-end is hosted on [Vercel](https://vercel.com/), and the back-end and database are managed via [Render](https://render.com/). <br> <br> <br>
+
+<p align="center">Below are diagrams for the architecture (<strong>left</strong>) and model-flow (<strong>right</strong>)</p>
+
+<div align="center">
+  <picture>
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/environment_flow_diagram.png" width="400" height="300" />
+  </picture>
+  <picture>
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow.png" width="400" height="300" />
+  </picture>
+</div>
 
 ## Installation (open-source)
 ```bash
@@ -68,6 +85,9 @@ a2cl/
 │   └── ...
 ```
 ## More details
+The full [thesis document](https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/Thesis.pdf) presents in-depth details about implementation, performance, architecture and more. <br>
+
+A high-level [overview](https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/Thesis%20Presentation.pdf) is also available.
 
 ## Project Status
 🔴 Archived / No Longer Maintained
