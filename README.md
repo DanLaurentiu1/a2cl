@@ -3,7 +3,7 @@
 
 <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/plans_view_page.png" width="450" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/plans_view_page.png" width="680" height="400" />
   </picture>
 </div>
 
@@ -18,16 +18,19 @@ On their own, the problem-sets are perhaps slightly inferior to already existing
 ### How?
 The project uses [Next.js](https://nextjs.org/) with [TailwindCSS](https://tailwindcss.com/) for the front-end and [FastAPI](https://fastapi.tiangolo.com/) for the back-end. User plans are stored in a [PostgreSQL](https://www.postgresql.org/) database using the [SQLAlchemy ORM](https://www.sqlalchemy.org/). Model's skeleton is built with [Gymnasium](https://gymnasium.farama.org/index.html) and monitored using [Stable-Baselines3](https://stable-baselines3.readthedocs.io/en/master/) callbacks. Our approaches are benchmarked against existing Stable-Baselines3 models. The entire project is deployed in production: the front-end is hosted on [Vercel](https://vercel.com/), and the back-end and database are managed via [Render](https://render.com/). <br> <br> <br>
 
-<p align="center">Below are diagrams for the architecture (<strong>left</strong>) and model-flow (<strong>right</strong>)</p>
+<p align="center">Below are diagrams for the architecture (<strong>top</strong>) and model-flow (<strong>bottom</strong>)</p>
 
 <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/architecture_diagram.png" width="400" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/architecture_diagram.png" width="352" height="400" />
   </picture>
+ </div>
+ <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow_diagram.png" width="400" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow_diagram.png" width="490" height="400" />
   </picture>
-</div>
+  </div>
+
 
 ## Installation (open-source)
 ```bash
