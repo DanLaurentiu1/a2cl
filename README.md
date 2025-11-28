@@ -3,7 +3,7 @@
 
 <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/plans_view_page.png" width="680" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/master/documents/plans_view_page.png" width="680" height="400" />
   </picture>
 </div>
 
@@ -22,12 +22,12 @@ The project uses [Next.js](https://nextjs.org/) with [TailwindCSS](https://tailw
 
 <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/architecture_diagram.png" width="352" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/master/documents/architecture_diagram.png" width="352" height="400" />
   </picture>
  </div>
  <div align="center">
   <picture>
-    <img src="https://github.com/DanLaurentiu1/a2cl/blob/documentation-branch/documents/model_flow_diagram.png" width="490" height="400" />
+    <img src="https://github.com/DanLaurentiu1/a2cl/blob/master/documents/model_flow_diagram.png" width="490" height="400" />
   </picture>
   </div>
 
